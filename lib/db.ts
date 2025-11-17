@@ -46,10 +46,10 @@ export async function getPrompts(params: PromptsQueryParams): Promise<PromptsRes
     const tagArray = typeof tags === 'string' ? tags.split(',').map(t => t.trim()) : tags;
     console.log('[Supabase] Filtering by tags:', tagArray);
     if (tagArray.length > 0) {
-      tagArray.forEach((tag: string) => {
-        console.log('[Supabase] Checking for tag:', tag);
-        query = query.contains('tags', [tag]);
-      });
+      // Use overlaps instead of contains for OR logic (any tag matches)
+      // This is more user-friendly - show prompts that have ANY of the selected tags
+      query = query.overlaps('tags', tagArray);
+      console.log('[Supabase] Using overlaps with tags:', tagArray);
     }
   }
 
