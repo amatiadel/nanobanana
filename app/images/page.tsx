@@ -38,7 +38,10 @@ export default function ImagesPage() {
           params.append('tags', filters.tags.join(','));
         }
 
-        const response = await fetch(`/api/prompts?${params}`, {
+        const url = `/api/prompts?${params}`;
+        console.log('[Images Page] Fetching:', url);
+        
+        const response = await fetch(url, {
           cache: 'no-store',
           headers: {
             'Cache-Control': 'no-cache, no-store, must-revalidate',
@@ -46,9 +49,16 @@ export default function ImagesPage() {
             'Expires': '0',
           },
         });
+        
+        console.log('[Images Page] Response status:', response.status);
+        console.log('[Images Page] Response headers:', Object.fromEntries(response.headers.entries()));
+        
         if (!response.ok) throw new Error('Failed to fetch prompts');
 
         const data = await response.json();
+        console.log('[Images Page] Received', data.items.length, 'prompts, total:', data.total);
+        console.log('[Images Page] First prompt:', data.items[0]?.title);
+        
         setPrompts(data.items);
         setTotal(data.total);
       } catch (error) {

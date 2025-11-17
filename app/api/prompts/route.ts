@@ -73,11 +73,16 @@ export async function GET(request: NextRequest) {
     // Fetch prompts with parsed parameters
     const response = await getPrompts(params);
 
+    // Debug logging
+    console.log('[API /prompts] Returning', response.items.length, 'prompts, total:', response.total);
+    console.log('[API /prompts] First prompt:', response.items[0]?.title);
+
     // Return successful response
     return NextResponse.json(response, {
       status: 200,
       headers: {
         'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+        'X-Timestamp': Date.now().toString(),
       },
     });
   } catch (error) {
