@@ -60,6 +60,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               Back to Blog
             </Link>
             <div className="bg-white rounded-2xl p-12 text-center">
+              <div className="text-[200px] font-black text-yellow-400 leading-none mb-8">
+                404
+              </div>
               <h1 className="text-3xl font-bold text-gray-900 mb-4">Post Not Found</h1>
               <p className="text-gray-600 mb-6">
                 The blog post you&apos;re looking for doesn&apos;t exist or has been removed.
@@ -98,11 +101,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </Link>
 
           <article className="bg-white rounded-2xl overflow-hidden shadow-lg">
-            <div className="relative h-96 overflow-hidden">
+            <div className="w-full">
               <img
                 src={post.coverImageUrl}
                 alt={post.title}
-                className="w-full h-full object-cover"
+                className="w-full h-auto"
               />
             </div>
 
