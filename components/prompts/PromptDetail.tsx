@@ -1,8 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 import { PromptItem } from '@/lib/types';
-import { generateBlurDataURL, getImageUrl } from '@/lib/utils';
+import { getImageUrl } from '@/lib/utils';
 import { PromptGrid } from '@/components/prompts/PromptGrid';
 import { PromptInfoCard } from './PromptInfoCard';
 import { LikeCard } from './LikeCard';
@@ -22,15 +21,10 @@ export function PromptDetail({ prompt, relatedPrompts }: PromptDetailProps) {
         <div className="relative flex justify-center lg:items-start items-center">
           <div className="relative w-full max-w-full overflow-hidden rounded-3xl">
             <div className="relative w-full pb-[133.33%]">
-              <Image
+              <img
                 src={imageUrl}
                 alt={prompt.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                priority
-                placeholder="blur"
-                blurDataURL={generateBlurDataURL(mainImagePath)}
+                className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
           </div>

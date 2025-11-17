@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Heart } from 'lucide-react';
 import { PromptItem } from '@/lib/types';
@@ -31,14 +30,11 @@ export function PromptCard({ prompt, index = 0 }: PromptCardProps) {
       >
         {/* Image */}
         <div className="relative aspect-[10/11] w-full">
-          <Image
+          <img
             src={imageUrl}
             alt={prompt.title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            placeholder="blur"
-            blurDataURL={generateBlurDataURL(prompt.coverUrl)}
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
           />
 
           {/* Title Capsule - Top Left */}
