@@ -56,14 +56,16 @@ export async function POST(request: Request) {
 
     const fields = {
       title: (formData.get('title') || '').toString(),
-      projectTitle: (formData.get('projectTitle') || '').toString(),
+      projectTitle: (formData.get('projectTitle') || formData.get('title') || '').toString(),
       prompt: (formData.get('prompt') || '').toString(),
       tags: (formData.get('tags') || '').toString(),
       creatorHandle: (formData.get('creatorHandle') || '').toString(),
     };
 
-    for (const [key, value] of Object.entries(fields)) {
-      if (!value.trim()) {
+    // Validate required fields (projectTitle is optional, defaults to title)
+    const requiredFields = ['title', 'prompt', 'tags', 'creatorHandle'];
+    for (const key of requiredFields) {
+      if (!fields[key as keyof typeof fields].trim()) {
         return NextResponse.json({ message: `Field "${key}" is required.` }, { status: 400 });
       }
     }
