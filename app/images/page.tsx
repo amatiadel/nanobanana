@@ -13,6 +13,7 @@ export default function ImagesPage() {
   const [prompts, setPrompts] = useState<PromptItem[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [refreshKey, setRefreshKey] = useState(0);
   const [filters, setFilters] = useState<FilterState>({
     search: '',
     tags: [],
@@ -26,6 +27,7 @@ export default function ImagesPage() {
         const params = new URLSearchParams({
           page: '1',
           pageSize: '24',
+          _t: Date.now().toString(), // Cache buster
         });
 
         if (filters.search) {
@@ -39,7 +41,9 @@ export default function ImagesPage() {
         const response = await fetch(`/api/prompts?${params}`, {
           cache: 'no-store',
           headers: {
-            'Cache-Control': 'no-cache',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0',
           },
         });
         if (!response.ok) throw new Error('Failed to fetch prompts');
@@ -57,7 +61,7 @@ export default function ImagesPage() {
     };
 
     fetchPrompts();
-  }, [filters]);
+  }, [filters, refreshKey]);
 
   const handleFilterChange = (newFilters: FilterState) => {
     setFilters(newFilters);
@@ -71,9 +75,18 @@ export default function ImagesPage() {
     <main className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Title */}
-        <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
-          Keep exploring the prompts your peers are sharing
-        </h1>
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-900">
+            Keep exploring the prompts your peers are sharing
+          </h1>
+          <button
+            onClick={() => setRefreshKey(prev => prev + 1)}
+            className="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+            title="Refresh prompts"
+          >
+            🔄 Refresh
+          </button>
+        </div>
 
         {/* Layout: Filter Panel + Content */}
         <div className="flex flex-col lg:flex-row gap-8">
