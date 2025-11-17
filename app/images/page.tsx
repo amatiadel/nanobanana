@@ -1,138 +1,45 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import { FilterPanel, FilterState } from '@/components/filters/FilterPanel';
+import { Metadata } from 'next';
+import { FilterPanel } from '@/components/filters/FilterPanel';
 import { PromptGrid } from '@/components/prompts/PromptGrid';
-import { EmptyState } from '@/components/ui/EmptyState';
-import { PromptItem } from '@/lib/types';
+import { getPrompts as getPromptsFromJson } from '@/lib/data';
+import { getPrompts as getPromptsFromSupabase } from '@/lib/db';
 
-// Note: Metadata cannot be exported from client components
-// SEO metadata is provided via layout.tsx metadata configuration
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
-export default function ImagesPage() {
-  // Force fresh state - no initial data
-  const [prompts, setPrompts] = useState<PromptItem[]>([]);
-  const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [refreshKey, setRefreshKey] = useState(Date.now()); // Use timestamp to force refresh
-  const [filters, setFilters] = useState<FilterState>({
-    search: '',
-    tags: [],
-  });
+// Use Supabase if configured, otherwise fall back to JSON
+const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+const getPrompts = useSupabase ? getPromptsFromSupabase : getPromptsFromJson;
 
-  // Fetch prompts based on filters
-  useEffect(() => {
-    const fetchPrompts = async () => {
-      setLoading(true);
-      try {
-        const params = new URLSearchParams({
-          page: '1',
-          pageSize: '24',
-          _t: Date.now().toString(), // Cache buster
-        });
+export const metadata: Metadata = {
+  title: 'Browse AI Image Prompts',
+  description: 'Explore our collection of AI image prompts. Filter by tags and search to find the perfect prompt for your next creation.',
+};
 
-        if (filters.search) {
-          params.append('search', filters.search);
-        }
-
-        if (filters.tags.length > 0) {
-          params.append('tags', filters.tags.join(','));
-        }
-
-        const url = `/api/prompts?${params}`;
-        console.log('[Images Page] Fetching:', url);
-        
-        const response = await fetch(url, {
-          cache: 'no-store',
-          headers: {
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0',
-          },
-        });
-        
-        console.log('[Images Page] Response status:', response.status);
-        console.log('[Images Page] Response headers:', Object.fromEntries(response.headers.entries()));
-        
-        if (!response.ok) throw new Error('Failed to fetch prompts');
-
-        const data = await response.json();
-        console.log('[Images Page] Received', data.items.length, 'prompts, total:', data.total);
-        console.log('[Images Page] First prompt:', data.items[0]?.title);
-        
-        setPrompts(data.items);
-        setTotal(data.total);
-      } catch (error) {
-        console.error('Error fetching prompts:', error);
-        setPrompts([]);
-        setTotal(0);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPrompts();
-  }, [filters, refreshKey]);
-
-  const handleFilterChange = (newFilters: FilterState) => {
-    setFilters(newFilters);
-  };
-
-  const handleClearFilters = () => {
-    setFilters({ search: '', tags: [] });
-  };
+export default async function ImagesPage() {
+  // Fetch initial prompts server-side
+  const data = await getPrompts({ sort: 'likes', page: 1, pageSize: 24 });
 
   return (
-    <main className="min-h-screen" key={`images-page-${refreshKey}`}>
+    <main className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Title */}
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900">
-            Keep exploring the prompts your peers are sharing
-          </h1>
-          <button
-            onClick={() => setRefreshKey(prev => prev + 1)}
-            className="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
-            title="Refresh prompts"
-          >
-            🔄 Refresh
-          </button>
-        </div>
+        <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
+          Keep exploring the prompts your peers are sharing
+        </h1>
 
-        {/* Layout: Filter Panel + Content */}
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Filter Panel - Sidebar on desktop */}
-          <div className="lg:w-80 flex-shrink-0">
-            <FilterPanel
-              onFilterChange={handleFilterChange}
-              initialFilters={filters}
-            />
-          </div>
+        {/* Show prompt count */}
+        <p className="text-sm text-slate-600 mb-4">
+          Showing {data.items.length} of {data.total} prompts
+        </p>
 
-          {/* Main Content Area */}
-          <div className="flex-1" role="region" aria-label="Prompt results">
-            {loading ? (
-              <div className="text-center py-12 text-slate-500" role="status" aria-live="polite">
-                <span>Loading prompts...</span>
-              </div>
-            ) : prompts.length === 0 ? (
-              <EmptyState
-                message="No prompts found matching your filters. Try adjusting your search or tags."
-                onClearFilters={handleClearFilters}
-              />
-            ) : (
-              <PromptGrid
-                initialPrompts={prompts}
-                initialPage={1}
-                initialTotal={total}
-                filters={{
-                  search: filters.search || undefined,
-                  tags: filters.tags.length > 0 ? filters.tags.join(',') : undefined,
-                }}
-              />
-            )}
-          </div>
-        </div>
+        {/* Prompts Grid */}
+        <PromptGrid
+          initialPrompts={data.items}
+          initialPage={data.page}
+          initialTotal={data.total}
+          filters={{ sort: 'likes' }}
+        />
       </div>
     </main>
   );
