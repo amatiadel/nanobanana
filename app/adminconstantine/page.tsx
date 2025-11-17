@@ -9,7 +9,6 @@ interface FormState {
   title: string;
   prompt: string;
   tags: string[];
-  projectTitle: string;
   creatorHandle: string;
 }
 
@@ -17,7 +16,6 @@ const initialState: FormState = {
   title: '',
   prompt: '',
   tags: [],
-  projectTitle: '',
   creatorHandle: '',
 };
 
@@ -115,7 +113,6 @@ export default function AdminConstantinePage() {
     try {
       const payload = new FormData();
       payload.append('title', formData.title);
-      payload.append('projectTitle', formData.projectTitle);
       payload.append('prompt', formData.prompt);
       payload.append('tags', formData.tags.join(','));
       payload.append('creatorHandle', formData.creatorHandle);
@@ -160,7 +157,6 @@ export default function AdminConstantinePage() {
     setEditingPromptId(prompt.id);
     setFormData({
       title: prompt.title,
-      projectTitle: prompt.description || '',
       prompt: prompt.prompt,
       tags: prompt.tags,
       creatorHandle: prompt.creator.handle,
@@ -300,21 +296,6 @@ export default function AdminConstantinePage() {
                   placeholder="e.g. Neon Skyline"
                 />
               </div>
-              <div>
-                <label className="text-sm font-medium text-slate-700">Project Title</label>
-                <input
-                  type="text"
-                  name="projectTitle"
-                  value={formData.projectTitle}
-                  onChange={handleChange}
-                  required
-                  className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-2 text-sm focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/20"
-                  placeholder="Project / Collection label"
-                />
-              </div>
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-2">
               <div>
                 <label className="text-sm font-medium text-slate-700">Creator Credit</label>
                 <input
