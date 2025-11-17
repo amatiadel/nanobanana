@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getPromptBySlug } from '@/lib/data';
+import { getPromptBySlug as getPromptBySlugFromJson } from '@/lib/data';
+import { getPromptBySlug as getPromptBySlugFromSupabase } from '@/lib/db';
+
+// Use Supabase if configured, otherwise fall back to JSON
+const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+const getPromptBySlug = useSupabase ? getPromptBySlugFromSupabase : getPromptBySlugFromJson;
 
 /**
  * GET /api/prompts/[slug]

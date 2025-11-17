@@ -3,21 +3,12 @@ import { NextRequest, NextResponse } from 'next/server';
 const ADMIN_USERNAME = 'amati';
 const ADMIN_PASSWORD = 'adelamati2505';
 
-// Disable admin features in production (Vercel)
-const isProduction = process.env.VERCEL || process.env.NODE_ENV === 'production';
-
 function unauthorizedResponse() {
   return new NextResponse('Authentication required', {
     status: 401,
     headers: {
       'WWW-Authenticate': 'Basic realm="Admin Area"',
     },
-  });
-}
-
-function disabledResponse() {
-  return new NextResponse('Admin features are disabled in production. Please use Supabase for data management.', {
-    status: 503,
   });
 }
 
@@ -32,11 +23,6 @@ export function middleware(request: NextRequest) {
 
   if (!isProtected) {
     return NextResponse.next();
-  }
-
-  // Block admin routes in production
-  if (isProduction) {
-    return disabledResponse();
   }
 
   const authHeader = request.headers.get('authorization');

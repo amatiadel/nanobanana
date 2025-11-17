@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getPrompts } from '@/lib/data';
+import { getPrompts as getPromptsFromJson } from '@/lib/data';
+import { getPrompts as getPromptsFromSupabase } from '@/lib/db';
 import { PromptsQueryParams } from '@/lib/types';
+
+// Use Supabase if configured, otherwise fall back to JSON
+const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+const getPrompts = useSupabase ? getPromptsFromSupabase : getPromptsFromJson;
 
 export const dynamic = 'force-dynamic';
 

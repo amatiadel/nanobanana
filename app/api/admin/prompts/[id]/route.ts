@@ -7,8 +7,10 @@ import {
   updatePrompt,
 } from '@/lib/data';
 import { optimizeImageBuffer } from '@/lib/image';
+import { supabase } from '@/lib/db';
 
 const UPLOAD_DIR = join(process.cwd(), 'public', 'uploads');
+const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 
 function normalizeUploadPath(pathname: string) {
   if (!pathname.startsWith('/uploads/')) {
@@ -89,26 +91,60 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const existing = getPromptById(params.id);
-    if (!existing) {
-      return NextResponse.json({ message: 'Prompt not found.' }, { status: 404 });
-    }
+    if (useSupabase) {
+      // Delete from Supabase
+      const { data: existing, error: fetchError } = await supabase
+        .from('prompts')
+        .select('*')
+        .eq('id', params.id)
+        .single();
 
-    const deleted = deletePrompt(params.id);
-    if (!deleted) {
-      return NextResponse.json({ message: 'Failed to delete prompt.' }, { status: 500 });
-    }
-
-    const existingPath = normalizeUploadPath(existing.coverUrl);
-    if (existingPath) {
-      try {
-        await unlink(existingPath);
-      } catch {
-        // Ignore delete errors
+      if (fetchError || !existing) {
+        return NextResponse.json({ message: 'Prompt not found.' }, { status: 404 });
       }
-    }
 
-    return NextResponse.json({ success: true });
+      const { error: deleteError } = await supabase
+        .from('prompts')
+        .delete()
+        .eq('id', params.id);
+
+      if (deleteError) {
+        throw deleteError;
+      }
+
+      // Optionally delete from Supabase Storage if using it
+      if (existing.cover_url && existing.cover_url.includes('supabase')) {
+        const filename = existing.cover_url.split('/').pop();
+        if (filename) {
+          await supabase.storage
+            .from('prompts')
+            .remove([`images/${filename}`]);
+        }
+      }
+
+      return NextResponse.json({ success: true });
+    } else {
+      const existing = getPromptById(params.id);
+      if (!existing) {
+        return NextResponse.json({ message: 'Prompt not found.' }, { status: 404 });
+      }
+
+      const deleted = deletePrompt(params.id);
+      if (!deleted) {
+        return NextResponse.json({ message: 'Failed to delete prompt.' }, { status: 500 });
+      }
+
+      const existingPath = normalizeUploadPath(existing.coverUrl);
+      if (existingPath) {
+        try {
+          await unlink(existingPath);
+        } catch {
+          // Ignore delete errors
+        }
+      }
+
+      return NextResponse.json({ success: true });
+    }
   } catch (error) {
     console.error('Failed to delete prompt', error);
     return NextResponse.json({ message: 'Failed to delete prompt.' }, { status: 500 });
