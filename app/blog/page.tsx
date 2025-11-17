@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { BlogPost } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Eye, User } from 'lucide-react';
@@ -69,11 +68,10 @@ export default function BlogPage() {
                   className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
                 >
                   <div className="relative h-48 overflow-hidden">
-                    <Image
+                    <img
                       src={post.coverImageUrl}
                       alt={post.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                   <div className="p-6">

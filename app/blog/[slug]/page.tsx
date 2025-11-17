@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
 import { BlogPost } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
@@ -7,12 +6,25 @@ import { Calendar, Eye, User, ArrowLeft } from 'lucide-react';
 
 async function getBlogPost(slug: string): Promise<BlogPost | null> {
   try {
+    // Use absolute URL for server-side fetch
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
+                    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
+                    'http://localhost:3000';
+    
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/blog/${slug}`,
-      { cache: 'no-store' }
+      `${baseUrl}/api/blog/${slug}`,
+      { 
+        cache: 'no-store',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
     );
     
-    if (!response.ok) return null;
+    if (!response.ok) {
+      console.error('Failed to fetch blog post:', response.status, response.statusText);
+      return null;
+    }
     
     const data = await response.json();
     return data.post;
@@ -21,6 +33,10 @@ async function getBlogPost(slug: string): Promise<BlogPost | null> {
     return null;
   }
 }
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   const post = await getBlogPost(params.slug);
@@ -51,12 +67,10 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
           <article className="bg-white rounded-2xl overflow-hidden shadow-lg">
             <div className="relative h-96 overflow-hidden">
-              <Image
+              <img
                 src={post.coverImageUrl}
                 alt={post.title}
-                fill
-                className="object-cover"
-                priority
+                className="w-full h-full object-cover"
               />
             </div>
 
