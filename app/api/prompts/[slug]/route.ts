@@ -2,10 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getPromptBySlug as getPromptBySlugFromJson } from '@/lib/data';
 import { getPromptBySlug as getPromptBySlugFromSupabase } from '@/lib/db';
 
-// Use Supabase if configured, otherwise fall back to JSON
-const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
-const getPromptBySlug = useSupabase ? getPromptBySlugFromSupabase : getPromptBySlugFromJson;
-
 /**
  * GET /api/prompts/[slug]
  * Fetches a single prompt by its slug identifier
@@ -25,6 +21,12 @@ export async function GET(
         { status: 400 }
       );
     }
+
+    // Check at runtime which data source to use
+    const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+    const getPromptBySlug = useSupabase ? getPromptBySlugFromSupabase : getPromptBySlugFromJson;
+    
+    console.log('[API /prompts/slug] Using Supabase:', useSupabase);
 
     // Fetch prompt by slug
     const prompt = await getPromptBySlug(slug.trim());
