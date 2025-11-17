@@ -69,24 +69,15 @@ export async function GET(request: NextRequest) {
     // Check at runtime which data source to use
     const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
     const getPrompts = useSupabase ? getPromptsFromSupabase : getPromptsFromJson;
-    
-    console.log('[API /prompts] Using Supabase:', useSupabase);
-    console.log('[API /prompts] Supabase URL set:', !!process.env.NEXT_PUBLIC_SUPABASE_URL);
-    console.log('[API /prompts] Supabase Key set:', !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 
     // Fetch prompts with parsed parameters
     const response = await getPrompts(params);
-
-    // Debug logging
-    console.log('[API /prompts] Returning', response.items.length, 'prompts, total:', response.total);
-    console.log('[API /prompts] First prompt:', response.items[0]?.title);
 
     // Return successful response
     return NextResponse.json(response, {
       status: 200,
       headers: {
         'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
-        'X-Timestamp': Date.now().toString(),
       },
     });
   } catch (error) {

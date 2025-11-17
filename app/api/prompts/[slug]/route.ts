@@ -25,8 +25,6 @@ export async function GET(
     // Check at runtime which data source to use
     const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
     const getPromptBySlug = useSupabase ? getPromptBySlugFromSupabase : getPromptBySlugFromJson;
-    
-    console.log('[API /prompts/slug] Using Supabase:', useSupabase);
 
     // Fetch prompt by slug
     const prompt = await getPromptBySlug(slug.trim());
