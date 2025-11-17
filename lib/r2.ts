@@ -33,27 +33,45 @@ export async function uploadToR2(
   contentType: string
 ): Promise<string> {
   if (!r2Client) {
-    throw new Error('R2 client not configured');
+    console.error('R2 client not configured. Check environment variables:');
+    console.error('R2_ACCOUNT_ID:', process.env.R2_ACCOUNT_ID ? 'Set' : 'Missing');
+    console.error('R2_ACCESS_KEY_ID:', process.env.R2_ACCESS_KEY_ID ? 'Set' : 'Missing');
+    console.error('R2_SECRET_ACCESS_KEY:', process.env.R2_SECRET_ACCESS_KEY ? 'Set' : 'Missing');
+    console.error('R2_BUCKET_NAME:', process.env.R2_BUCKET_NAME ? 'Set' : 'Missing');
+    throw new Error('R2 client not configured - check environment variables');
   }
 
   const key = `images/${filename}`;
 
-  const command = new PutObjectCommand({
-    Bucket: R2_BUCKET,
-    Key: key,
-    Body: buffer,
-    ContentType: contentType,
+  console.log('Uploading to R2:', {
+    bucket: R2_BUCKET,
+    key,
+    contentType,
+    bufferSize: buffer.length,
   });
 
-  await r2Client.send(command);
+  try {
+    const command = new PutObjectCommand({
+      Bucket: R2_BUCKET,
+      Key: key,
+      Body: buffer,
+      ContentType: contentType,
+    });
 
-  // Return public URL
-  // If you have a custom domain, use that, otherwise use R2.dev URL
-  const publicUrl = R2_PUBLIC_URL
-    ? `${R2_PUBLIC_URL}/${key}`
-    : `https://${R2_BUCKET}.${process.env.R2_ACCOUNT_ID}.r2.dev/${key}`;
+    await r2Client.send(command);
 
-  return publicUrl;
+    // Return public URL
+    // If you have a custom domain, use that, otherwise use R2.dev URL
+    const publicUrl = R2_PUBLIC_URL
+      ? `${R2_PUBLIC_URL}/${key}`
+      : `https://${R2_BUCKET}.${process.env.R2_ACCOUNT_ID}.r2.dev/${key}`;
+
+    console.log('R2 upload successful:', publicUrl);
+    return publicUrl;
+  } catch (error) {
+    console.error('R2 upload failed:', error);
+    throw error;
+  }
 }
 
 /**
