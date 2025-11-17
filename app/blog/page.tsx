@@ -36,7 +36,7 @@ export default function BlogPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50">
+      <div className="min-h-screen bg-[#F6F8FB]">
         <div className="container mx-auto px-4 py-12">
           <div className="text-center">Loading...</div>
         </div>
@@ -45,7 +45,7 @@ export default function BlogPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50">
+    <div className="min-h-screen bg-[#F6F8FB]">
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">

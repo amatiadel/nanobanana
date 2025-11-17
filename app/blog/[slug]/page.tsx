@@ -37,7 +37,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50">
+      <div className="min-h-screen bg-[#F6F8FB]">
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-4xl mx-auto text-center">
             <div className="text-gray-600">Loading...</div>
@@ -49,7 +49,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
   if (error || !post) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50">
+      <div className="min-h-screen bg-[#F6F8FB]">
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-4xl mx-auto">
             <Link
@@ -59,7 +59,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               <ArrowLeft className="w-4 h-4" />
               Back to Blog
             </Link>
-            <div className="bg-white rounded-2xl p-12 text-center">
+            <div className="bg-white rounded-2xl p-12 text-center shadow-lg">
               <div className="text-[200px] font-black text-yellow-400 leading-none mb-8">
                 404
               </div>
@@ -89,7 +89,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50">
+    <div className="min-h-screen bg-[#F6F8FB]">
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
           <Link
