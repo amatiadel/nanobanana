@@ -80,25 +80,37 @@ export async function POST(request: Request) {
     let imagePath: string;
 
     if (useSupabase) {
-      // Upload to Supabase Storage
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from('prompts')
-        .upload(`images/${filename}`, optimizedBuffer, {
-          contentType: fileEntry.type,
-          upsert: false,
-        });
+      try {
+        // Upload to Supabase Storage
+        const { error: uploadError } = await supabase.storage
+          .from('prompts')
+          .upload(`images/${filename}`, optimizedBuffer, {
+            contentType: fileEntry.type,
+            upsert: false,
+          });
 
-      if (uploadError) {
-        console.error('Supabase upload error:', uploadError);
-        throw new Error('Failed to upload image to Supabase');
+        if (uploadError) {
+          console.error('Supabase upload error:', uploadError);
+          // If storage fails, convert to base64 data URL as fallback
+          const base64 = optimizedBuffer.toString('base64');
+          const mimeType = fileEntry.type || 'image/jpeg';
+          imagePath = `data:${mimeType};base64,${base64}`;
+          console.log('Using base64 fallback for image storage');
+        } else {
+          // Get public URL
+          const { data: urlData } = supabase.storage
+            .from('prompts')
+            .getPublicUrl(`images/${filename}`);
+
+          imagePath = urlData.publicUrl;
+        }
+      } catch (storageError) {
+        console.error('Storage error, using base64 fallback:', storageError);
+        // Fallback to base64 if storage completely fails
+        const base64 = optimizedBuffer.toString('base64');
+        const mimeType = fileEntry.type || 'image/jpeg';
+        imagePath = `data:${mimeType};base64,${base64}`;
       }
-
-      // Get public URL
-      const { data: urlData } = supabase.storage
-        .from('prompts')
-        .getPublicUrl(`images/${filename}`);
-
-      imagePath = urlData.publicUrl;
     } else {
       // Fall back to local filesystem
       await mkdir(UPLOAD_DIR, { recursive: true });
@@ -151,8 +163,31 @@ export async function POST(request: Request) {
         .select()
         .single();
 
-      if (insertError) throw insertError;
-      return NextResponse.json({ prompt: newPrompt }, { status: 201 });
+      if (insertError) {
+        console.error('Supabase insert error:', insertError);
+        throw new Error(`Database insert failed: ${insertError.message}`);
+      }
+      
+      // Map the response to PromptItem format
+      const mappedPrompt = {
+        id: newPrompt.id,
+        slug: newPrompt.slug,
+        title: newPrompt.title,
+        creator: {
+          id: newPrompt.creator_id,
+          handle: newPrompt.creator_handle,
+        },
+        coverUrl: newPrompt.cover_url,
+        fullImageUrl: newPrompt.full_image_url,
+        description: newPrompt.description,
+        prompt: newPrompt.prompt,
+        tags: newPrompt.tags,
+        likes: newPrompt.likes,
+        premium: newPrompt.premium,
+        createdAt: newPrompt.created_at,
+      };
+      
+      return NextResponse.json({ prompt: mappedPrompt }, { status: 201 });
     } else {
       const newPrompt = addPrompt({
         title: fields.title,
@@ -166,7 +201,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ prompt: newPrompt }, { status: 201 });
     }
   } catch (error) {
-    console.error('Failed to add prompt', error);
-    return NextResponse.json({ message: 'Failed to add prompt.' }, { status: 500 });
+    console.error('Failed to add prompt:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json({ 
+      message: 'Failed to add prompt.',
+      error: errorMessage,
+      details: error 
+    }, { status: 500 });
   }
 }
