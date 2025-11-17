@@ -1,0 +1,47 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <rect width="1200" height="630" fill="url(#gradient1)"/>
+  <defs>
+    <linearGradient id="gradient1" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFF7ED"/>
+      <stop offset="50%" stop-color="#FEF3C7"/>
+      <stop offset="100%" stop-color="#FED7AA"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Decorative circles -->
+  <circle cx="100" cy="100" r="80" fill="#FBBF24" opacity="0.2"/>
+  <circle cx="1100" cy="530" r="100" fill="#F59E0B" opacity="0.2"/>
+  <circle cx="950" cy="150" r="60" fill="#FB923C" opacity="0.3"/>
+  
+  <!-- Main content -->
+  <rect x="100" y="150" width="1000" height="400" rx="20" fill="white" opacity="0.9"/>
+  
+  <!-- Icon -->
+  <circle cx="200" cy="280" r="50" fill="#F59E0B"/>
+  <path d="M185 280 L195 290 L215 270" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Text -->
+  <text x="280" y="290" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#1F2937">
+    Getting Started with AI Prompts
+  </text>
+  <text x="280" y="340" font-family="Arial, sans-serif" font-size="24" fill="#6B7280">
+    Learn the fundamentals of crafting effective AI image prompts
+  </text>
+  
+  <!-- Tags -->
+  <rect x="280" y="380" width="100" height="30" rx="15" fill="#FEF3C7"/>
+  <text x="330" y="400" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#92400E" text-anchor="middle">
+    Tutorial
+  </text>
+  
+  <rect x="390" y="380" width="120" height="30" rx="15" fill="#DBEAFE"/>
+  <text x="450" y="400" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#1E40AF" text-anchor="middle">
+    Beginner
+  </text>
+  
+  <rect x="520" y="380" width="80" height="30" rx="15" fill="#FCE7F3"/>
+  <text x="560" y="400" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#9F1239" text-anchor="middle">
+    AI Art
+  </text>
+</svg>

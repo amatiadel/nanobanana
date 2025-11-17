@@ -66,3 +66,42 @@ export interface TagCategory {
   label: string;
   tags: Tag[];
 }
+
+/**
+ * Blog post interface
+ */
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  coverImageUrl: string;
+  authorName: string;
+  authorAvatarUrl?: string;
+  tags: string[];
+  published: boolean;
+  views: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
+ * Query parameters for fetching blog posts
+ */
+export interface BlogPostsQueryParams {
+  search?: string;
+  tags?: string;
+  page?: number;
+  pageSize?: number;
+}
+
+/**
+ * Response structure for blog posts API
+ */
+export interface BlogPostsResponse {
+  items: BlogPost[];
+  page: number;
+  pageSize: number;
+  total: number;
+}

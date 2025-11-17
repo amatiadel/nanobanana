@@ -16,6 +16,7 @@ export function Header({ className }: HeaderProps) {
   const navLinks = [
     { id: "home", href: "/", label: "Home", disabled: false },
     { id: "images", href: "/images", label: "Images", disabled: false },
+    { id: "blog", href: "/blog", label: "Blog", disabled: false },
     { id: "videos", href: "#", label: "Videos", disabled: true },
   ];
 
