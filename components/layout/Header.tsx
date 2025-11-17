@@ -16,7 +16,7 @@ export function Header({ className }: HeaderProps) {
   const navLinks = [
     { id: "home", href: "/", label: "Home", disabled: false },
     { id: "images", href: "/images", label: "Images", disabled: false },
-    { id: "videos", href: "#", label: "Videos (Coming Soon)", disabled: true },
+    { id: "videos", href: "#", label: "Videos", disabled: true },
   ];
 
   return (
@@ -39,13 +39,14 @@ export function Header({ className }: HeaderProps) {
           <nav className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) =>
               link.disabled ? (
-                <span
-                  key={link.id}
-                  className="cursor-not-allowed text-sm font-medium text-slate-400"
-                  aria-disabled="true"
-                >
-                  {link.label}
-                </span>
+                <div key={link.id} className="relative flex items-center gap-2">
+                  <span className="text-sm font-medium text-slate-700">
+                    Videos
+                  </span>
+                  <span className="relative inline-block rotate-3 transform rounded bg-yellow-400 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-900 shadow-sm">
+                    Coming Soon
+                  </span>
+                </div>
               ) : (
                 <Link
                   key={link.id}
@@ -85,13 +86,14 @@ export function Header({ className }: HeaderProps) {
               <nav className="flex flex-col gap-4 pt-8">
                 {navLinks.map((link) =>
                   link.disabled ? (
-                    <span
-                      key={link.id}
-                      className="cursor-not-allowed text-lg font-medium text-slate-400"
-                      aria-disabled="true"
-                    >
-                      {link.label}
-                    </span>
+                    <div key={link.id} className="flex items-center gap-2">
+                      <span className="text-lg font-medium text-slate-700">
+                        Videos
+                      </span>
+                      <span className="relative inline-block rotate-3 transform rounded bg-yellow-400 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-slate-900 shadow-sm">
+                        Coming Soon
+                      </span>
+                    </div>
                   ) : (
                     <Link
                       key={link.id}
