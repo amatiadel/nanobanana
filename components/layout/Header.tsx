@@ -2,16 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 interface HeaderProps {
@@ -24,8 +16,7 @@ export function Header({ className }: HeaderProps) {
   const navLinks = [
     { id: "home", href: "/", label: "Home", disabled: false },
     { id: "images", href: "/images", label: "Images", disabled: false },
-    { id: "videos", href: "#", label: "Videos", disabled: true },
-    { id: "studio", href: "#", label: "Studio", disabled: true },
+    { id: "videos", href: "#", label: "Videos (Coming Soon)", disabled: true },
   ];
 
   return (
@@ -39,7 +30,7 @@ export function Header({ className }: HeaderProps) {
             <div className="flex items-center gap-1.5">
               <div className="h-2 w-2 rounded-full bg-yellow-400" />
               <span className="text-lg font-bold tracking-tight text-slate-900">
-                BANANA PROMPTS
+                PROMPT LIBRARY
               </span>
             </div>
           </Link>
@@ -69,22 +60,18 @@ export function Header({ className }: HeaderProps) {
 
           {/* CTA Button - Desktop */}
           <div className="hidden md:block">
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button className="bg-slate-900 text-white hover:bg-slate-800">
-                  Generate Image
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Generate Image</DialogTitle>
-                  <DialogDescription>
-                    This feature is coming soon! Stay tuned for AI image
-                    generation capabilities.
-                  </DialogDescription>
-                </DialogHeader>
-              </DialogContent>
-            </Dialog>
+            <Button 
+              asChild
+              className="bg-slate-900 text-white hover:bg-slate-800"
+            >
+              <a 
+                href="https://t.me/syntxaibot?start=aff_1111450588" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                Generate Image
+              </a>
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -116,22 +103,19 @@ export function Header({ className }: HeaderProps) {
                     </Link>
                   )
                 )}
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button className="mt-4 bg-slate-900 text-white hover:bg-slate-800">
-                      Generate Image
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Generate Image</DialogTitle>
-                      <DialogDescription>
-                        This feature is coming soon! Stay tuned for AI image
-                        generation capabilities.
-                      </DialogDescription>
-                    </DialogHeader>
-                  </DialogContent>
-                </Dialog>
+                <Button 
+                  asChild
+                  className="mt-4 bg-slate-900 text-white hover:bg-slate-800"
+                >
+                  <a 
+                    href="https://t.me/syntxaibot?start=aff_1111450588" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Generate Image
+                  </a>
+                </Button>
               </nav>
             </SheetContent>
           </Sheet>
