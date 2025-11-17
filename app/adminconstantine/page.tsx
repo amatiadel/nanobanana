@@ -3,11 +3,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { PromptItem } from '@/lib/types';
+import { TAG_CATEGORIES } from '@/lib/tags';
 
 interface FormState {
   title: string;
   prompt: string;
-  tags: string;
+  tags: string[];
   projectTitle: string;
   creatorHandle: string;
 }
@@ -15,7 +16,7 @@ interface FormState {
 const initialState: FormState = {
   title: '',
   prompt: '',
-  tags: '',
+  tags: [],
   projectTitle: '',
   creatorHandle: '',
 };
@@ -116,7 +117,7 @@ export default function AdminConstantinePage() {
       payload.append('title', formData.title);
       payload.append('projectTitle', formData.projectTitle);
       payload.append('prompt', formData.prompt);
-      payload.append('tags', formData.tags);
+      payload.append('tags', formData.tags.join(','));
       payload.append('creatorHandle', formData.creatorHandle);
 
       if (imageFile) {
@@ -161,7 +162,7 @@ export default function AdminConstantinePage() {
       title: prompt.title,
       projectTitle: prompt.description || '',
       prompt: prompt.prompt,
-      tags: prompt.tags.join(', '),
+      tags: prompt.tags,
       creatorHandle: prompt.creator.handle,
     });
     setImageFile(null);
@@ -327,17 +328,34 @@ export default function AdminConstantinePage() {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-slate-700">Tags</label>
-                <input
-                  type="text"
-                  name="tags"
-                  value={formData.tags}
-                  onChange={handleChange}
-                  required
-                  className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-2 text-sm focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/20"
-                  placeholder="cinematic, futuristic, neon"
-                />
-                <p className="mt-1 text-xs text-slate-400">Separate tags with commas.</p>
+                <label className="text-sm font-medium text-slate-700">Tags (select at least one)</label>
+                <div className="mt-2 max-h-64 overflow-y-auto rounded-xl border border-slate-200 p-4">
+                  {TAG_CATEGORIES.map((category) => (
+                    <div key={category.id} className="mb-4 last:mb-0">
+                      <h4 className="text-xs font-semibold text-slate-600 mb-2">{category.label}</h4>
+                      <div className="grid grid-cols-2 gap-2">
+                        {category.tags.map((tag) => (
+                          <label key={tag.slug} className="flex items-center space-x-2 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={formData.tags.includes(tag.slug)}
+                              onChange={(e) => {
+                                if (e.target.checked) {
+                                  setFormData({ ...formData, tags: [...formData.tags, tag.slug] });
+                                } else {
+                                  setFormData({ ...formData, tags: formData.tags.filter(t => t !== tag.slug) });
+                                }
+                              }}
+                              className="rounded border-slate-300 text-slate-900 focus:ring-slate-900"
+                            />
+                            <span className="text-sm text-slate-700">{tag.label}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-1 text-xs text-slate-400">Selected: {formData.tags.length} tag(s)</p>
               </div>
             </div>
 
