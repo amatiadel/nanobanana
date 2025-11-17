@@ -3,14 +3,5 @@
   "devCommand": "pnpm dev",
   "installCommand": "pnpm install",
   "framework": "nextjs",
-  "regions": ["iad1"],
-  "images": {
-    "domains": [],
-    "remotePatterns": [
-      {
-        "protocol": "https",
-        "hostname": "**"
-      }
-    ]
-  }
+  "regions": ["iad1"]
 }
