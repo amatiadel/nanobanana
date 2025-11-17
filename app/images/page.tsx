@@ -36,7 +36,12 @@ export default function ImagesPage() {
           params.append('tags', filters.tags.join(','));
         }
 
-        const response = await fetch(`/api/prompts?${params}`);
+        const response = await fetch(`/api/prompts?${params}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache',
+          },
+        });
         if (!response.ok) throw new Error('Failed to fetch prompts');
 
         const data = await response.json();

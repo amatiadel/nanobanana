@@ -45,7 +45,12 @@ export function PromptGrid({
       if (filters.tags) params.set('tags', filters.tags);
       if (filters.sort) params.set('sort', filters.sort);
 
-      const response = await fetch(`/api/prompts?${params}`);
+      const response = await fetch(`/api/prompts?${params}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+      });
       const data = await response.json();
 
       if (data.items && data.items.length > 0) {
