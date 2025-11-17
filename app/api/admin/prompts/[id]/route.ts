@@ -57,7 +57,7 @@ export async function PATCH(
 
       const tags = formData.get('tags');
       if (tags && typeof tags === 'string' && tags.trim()) {
-        updates.tags = tags.split(',').map(t => t.trim());
+        updates.tags = tags.split(',').map(t => t.trim().toLowerCase());
       }
 
       const creatorHandle = formData.get('creatorHandle');

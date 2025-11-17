@@ -161,14 +161,14 @@ export async function POST(request: Request) {
         counter++;
       }
 
-      const { data: newPrompt, error: insertError } = await supabase
+      const { data: newPrompt, error: insertError} = await supabase
         .from('prompts')
         .insert({
           slug,
           title: fields.title || fields.projectTitle,
           description: fields.projectTitle || fields.title,
           prompt: fields.prompt,
-          tags: fields.tags.split(',').map((t) => t.trim()),
+          tags: fields.tags.split(',').map((t) => t.trim().toLowerCase()),
           cover_url: imagePath,
           full_image_url: imagePath,
           creator_id: `creator-${fields.creatorHandle}`,
