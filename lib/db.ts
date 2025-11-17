@@ -44,8 +44,10 @@ export async function getPrompts(params: PromptsQueryParams): Promise<PromptsRes
   // Apply tag filters (AND logic - must contain all selected tags)
   if (tags) {
     const tagArray = typeof tags === 'string' ? tags.split(',').map(t => t.trim()) : tags;
+    console.log('[Supabase] Filtering by tags:', tagArray);
     if (tagArray.length > 0) {
       tagArray.forEach((tag: string) => {
+        console.log('[Supabase] Checking for tag:', tag);
         query = query.contains('tags', [tag]);
       });
     }
@@ -69,6 +71,11 @@ export async function getPrompts(params: PromptsQueryParams): Promise<PromptsRes
   if (error) {
     console.error('Supabase query error:', error);
     throw new Error('Failed to fetch prompts');
+  }
+
+  console.log('[Supabase] Query returned', data?.length, 'prompts');
+  if (data && data.length > 0) {
+    console.log('[Supabase] First prompt tags:', data[0].tags);
   }
 
   // Map database rows to PromptItem type
