@@ -41,7 +41,7 @@ export async function GET(
     return NextResponse.json(prompt, {
       status: 200,
       headers: {
-        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
       },
     });
   } catch (error) {
