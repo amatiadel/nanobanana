@@ -10,10 +10,11 @@ import { PromptItem } from '@/lib/types';
 // SEO metadata is provided via layout.tsx metadata configuration
 
 export default function ImagesPage() {
+  // Force fresh state - no initial data
   const [prompts, setPrompts] = useState<PromptItem[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [refreshKey, setRefreshKey] = useState(0);
+  const [refreshKey, setRefreshKey] = useState(Date.now()); // Use timestamp to force refresh
   const [filters, setFilters] = useState<FilterState>({
     search: '',
     tags: [],
@@ -82,7 +83,7 @@ export default function ImagesPage() {
   };
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen" key={`images-page-${refreshKey}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Title */}
         <div className="flex items-center justify-between mb-8">
