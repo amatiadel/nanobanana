@@ -1,8 +1,14 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getPromptBySlug, getRelatedPrompts } from '@/lib/data';
+import { getPromptBySlug as getPromptBySlugFromJson, getRelatedPrompts as getRelatedPromptsFromJson } from '@/lib/data';
+import { getPromptBySlug as getPromptBySlugFromSupabase, getRelatedPrompts as getRelatedPromptsFromSupabase } from '@/lib/db';
 import { getImageUrl } from '@/lib/utils';
 import { PromptDetail } from '@/components/prompts/PromptDetail';
+
+// Use Supabase if configured, otherwise fall back to JSON
+const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+const getPromptBySlug = useSupabase ? getPromptBySlugFromSupabase : getPromptBySlugFromJson;
+const getRelatedPrompts = useSupabase ? getRelatedPromptsFromSupabase : getRelatedPromptsFromJson;
 
 export const revalidate = 0;
 
@@ -60,7 +66,9 @@ export default async function PromptDetailPage({ params }: PageProps) {
   }
 
   // Fetch related prompts (3-6 items with overlapping tags)
-  const relatedPrompts = await getRelatedPrompts(prompt, 6);
+  const relatedPrompts = useSupabase 
+    ? await getRelatedPromptsFromSupabase(prompt.slug, prompt.tags, 6)
+    : await getRelatedPromptsFromJson(prompt, 6);
 
   return (
     <div className="min-h-screen bg-[#F6F8FB]">

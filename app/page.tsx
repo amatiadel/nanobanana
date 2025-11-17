@@ -2,7 +2,12 @@ import { Metadata } from 'next';
 import Hero from "@/components/home/Hero";
 import StatCard from "@/components/home/StatCard";
 import { PromptGrid } from "@/components/prompts/PromptGrid";
-import { getPrompts } from "@/lib/data";
+import { getPrompts as getPromptsFromJson } from "@/lib/data";
+import { getPrompts as getPromptsFromSupabase } from "@/lib/db";
+
+// Use Supabase if configured, otherwise fall back to JSON
+const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+const getPrompts = useSupabase ? getPromptsFromSupabase : getPromptsFromJson;
 
 export const revalidate = 0;
 
