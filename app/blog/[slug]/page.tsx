@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { BlogPost } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
@@ -11,7 +10,6 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     fetchPost();
@@ -64,7 +62,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             <div className="bg-white rounded-2xl p-12 text-center">
               <h1 className="text-3xl font-bold text-gray-900 mb-4">Post Not Found</h1>
               <p className="text-gray-600 mb-6">
-                The blog post you're looking for doesn't exist or has been removed.
+                The blog post you&apos;re looking for doesn&apos;t exist or has been removed.
               </p>
               <Link
                 href="/blog"
