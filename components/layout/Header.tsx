@@ -39,12 +39,12 @@ export function Header({ className }: HeaderProps) {
           <nav className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) =>
               link.disabled ? (
-                <div key={link.id} className="relative flex items-center gap-2">
+                <div key={link.id} className="relative flex flex-col items-start">
                   <span className="text-sm font-medium text-slate-700">
                     Videos
                   </span>
-                  <span className="relative inline-block rotate-3 transform rounded bg-yellow-400 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-900 shadow-sm">
-                    Coming Soon
+                  <span className="absolute -bottom-3 left-0 inline-block rotate-2 transform rounded bg-yellow-400 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wide text-slate-900 shadow-sm">
+                    Soon
                   </span>
                 </div>
               ) : (
@@ -86,12 +86,12 @@ export function Header({ className }: HeaderProps) {
               <nav className="flex flex-col gap-4 pt-8">
                 {navLinks.map((link) =>
                   link.disabled ? (
-                    <div key={link.id} className="flex items-center gap-2">
+                    <div key={link.id} className="relative flex flex-col items-start">
                       <span className="text-lg font-medium text-slate-700">
                         Videos
                       </span>
-                      <span className="relative inline-block rotate-3 transform rounded bg-yellow-400 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-slate-900 shadow-sm">
-                        Coming Soon
+                      <span className="mt-1 inline-block rotate-2 transform rounded bg-yellow-400 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wide text-slate-900 shadow-sm">
+                        Soon
                       </span>
                     </div>
                   ) : (

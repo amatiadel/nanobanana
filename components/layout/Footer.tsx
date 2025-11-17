@@ -12,7 +12,7 @@ export function Footer() {
           <div className="flex items-center gap-1.5">
             <div className="h-2 w-2 rounded-full bg-yellow-400" />
             <span className="text-sm font-semibold text-slate-900">
-              BANANA PROMPTS
+              PROMPT LIBRARY
             </span>
           </div>
 
@@ -29,31 +29,10 @@ export function Footer() {
             >
               Images
             </Link>
-            <Link
-              href="#"
-              className="text-sm text-slate-400"
-              onClick={(e) => e.preventDefault()}
-            >
-              About
-            </Link>
-            <Link
-              href="#"
-              className="text-sm text-slate-400"
-              onClick={(e) => e.preventDefault()}
-            >
-              Terms
-            </Link>
-            <Link
-              href="#"
-              className="text-sm text-slate-400"
-              onClick={(e) => e.preventDefault()}
-            >
-              Privacy
-            </Link>
           </nav>
 
           <p className="text-sm text-slate-500">
-            © {currentYear} Banana Prompts
+            © {currentYear} PROMPT LIBRARY
           </p>
         </div>
       </div>
