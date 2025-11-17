@@ -25,7 +25,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 export async function getPrompts(params: PromptsQueryParams): Promise<PromptsResponse> {
   const {
     search = '',
-    tags = [],
+    tags,
     sort = 'likes',
     page = 1,
     pageSize = 24,
@@ -42,10 +42,13 @@ export async function getPrompts(params: PromptsQueryParams): Promise<PromptsRes
   }
 
   // Apply tag filters (AND logic - must contain all selected tags)
-  if (Array.isArray(tags) && tags.length > 0) {
-    tags.forEach((tag: string) => {
-      query = query.contains('tags', [tag]);
-    });
+  if (tags) {
+    const tagArray = typeof tags === 'string' ? tags.split(',').map(t => t.trim()) : tags;
+    if (tagArray.length > 0) {
+      tagArray.forEach((tag: string) => {
+        query = query.contains('tags', [tag]);
+      });
+    }
   }
 
   // Apply sorting
@@ -70,21 +73,21 @@ export async function getPrompts(params: PromptsQueryParams): Promise<PromptsRes
 
   // Map database rows to PromptItem type
   const items: PromptItem[] = (data || []).map(row => ({
-    id: row.id,
-    slug: row.slug,
-    title: row.title,
+    id: row.id || '',
+    slug: row.slug || '',
+    title: row.title || 'Untitled',
     creator: {
-      id: row.creator_id,
-      handle: row.creator_handle,
+      id: row.creator_id || 'unknown',
+      handle: row.creator_handle || 'anonymous',
     },
-    coverUrl: row.cover_url,
-    fullImageUrl: row.full_image_url || row.cover_url,
-    description: row.description,
-    prompt: row.prompt,
-    tags: row.tags,
-    likes: row.likes,
-    premium: row.premium,
-    createdAt: row.created_at,
+    coverUrl: row.cover_url || '/images/placeholder.svg',
+    fullImageUrl: row.full_image_url || row.cover_url || '/images/placeholder.svg',
+    description: row.description || '',
+    prompt: row.prompt || '',
+    tags: Array.isArray(row.tags) ? row.tags : [],
+    likes: row.likes || 0,
+    premium: row.premium || false,
+    createdAt: row.created_at || new Date().toISOString(),
   }));
 
   return {
@@ -110,21 +113,21 @@ export async function getPromptBySlug(slug: string): Promise<PromptItem | null> 
   }
 
   return {
-    id: data.id,
-    slug: data.slug,
-    title: data.title,
+    id: data.id || '',
+    slug: data.slug || '',
+    title: data.title || 'Untitled',
     creator: {
-      id: data.creator_id,
-      handle: data.creator_handle,
+      id: data.creator_id || 'unknown',
+      handle: data.creator_handle || 'anonymous',
     },
-    coverUrl: data.cover_url,
-    fullImageUrl: data.full_image_url || data.cover_url,
-    description: data.description,
-    prompt: data.prompt,
-    tags: data.tags,
-    likes: data.likes,
-    premium: data.premium,
-    createdAt: data.created_at,
+    coverUrl: data.cover_url || '/images/placeholder.svg',
+    fullImageUrl: data.full_image_url || data.cover_url || '/images/placeholder.svg',
+    description: data.description || '',
+    prompt: data.prompt || '',
+    tags: Array.isArray(data.tags) ? data.tags : [],
+    likes: data.likes || 0,
+    premium: data.premium || false,
+    createdAt: data.created_at || new Date().toISOString(),
   };
 }
 
@@ -154,20 +157,20 @@ export async function getRelatedPrompts(
   }
 
   return data.map(row => ({
-    id: row.id,
-    slug: row.slug,
-    title: row.title,
+    id: row.id || '',
+    slug: row.slug || '',
+    title: row.title || 'Untitled',
     creator: {
-      id: row.creator_id,
-      handle: row.creator_handle,
+      id: row.creator_id || 'unknown',
+      handle: row.creator_handle || 'anonymous',
     },
-    coverUrl: row.cover_url,
-    fullImageUrl: row.full_image_url || row.cover_url,
-    description: row.description,
-    prompt: row.prompt,
-    tags: row.tags,
-    likes: row.likes,
-    premium: row.premium,
-    createdAt: row.created_at,
+    coverUrl: row.cover_url || '/images/placeholder.svg',
+    fullImageUrl: row.full_image_url || row.cover_url || '/images/placeholder.svg',
+    description: row.description || '',
+    prompt: row.prompt || '',
+    tags: Array.isArray(row.tags) ? row.tags : [],
+    likes: row.likes || 0,
+    premium: row.premium || false,
+    createdAt: row.created_at || new Date().toISOString(),
   }));
 }

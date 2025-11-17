@@ -11,13 +11,33 @@ const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_
 export async function GET() {
   try {
     if (useSupabase) {
-      const { data: prompts, error } = await supabase
+      const { data, error } = await supabase
         .from('prompts')
         .select('*')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      return NextResponse.json({ prompts: prompts || [] });
+      
+      // Map Supabase data to PromptItem format
+      const prompts = (data || []).map(row => ({
+        id: row.id || '',
+        slug: row.slug || '',
+        title: row.title || 'Untitled',
+        creator: {
+          id: row.creator_id || 'unknown',
+          handle: row.creator_handle || 'anonymous',
+        },
+        coverUrl: row.cover_url || '/images/placeholder.svg',
+        fullImageUrl: row.full_image_url || row.cover_url || '/images/placeholder.svg',
+        description: row.description || '',
+        prompt: row.prompt || '',
+        tags: Array.isArray(row.tags) ? row.tags : [],
+        likes: row.likes || 0,
+        premium: row.premium || false,
+        createdAt: row.created_at || new Date().toISOString(),
+      }));
+      
+      return NextResponse.json({ prompts });
     } else {
       const prompts = listPrompts();
       return NextResponse.json({ prompts });
