@@ -4,9 +4,11 @@ import { join } from 'path';
 import { addPrompt, listPrompts } from '@/lib/data';
 import { optimizeImageBuffer } from '@/lib/image';
 import { supabase } from '@/lib/db';
+import { uploadToR2, isR2Configured } from '@/lib/r2';
 
 const UPLOAD_DIR = join(process.cwd(), 'public', 'uploads');
 const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+const useR2 = isR2Configured();
 
 export async function GET() {
   try {
@@ -79,7 +81,21 @@ export async function POST(request: Request) {
 
     let imagePath: string;
 
-    if (useSupabase) {
+    // Priority: R2 > Supabase Storage > Base64 > Local filesystem
+    if (useR2) {
+      try {
+        // Upload to Cloudflare R2
+        imagePath = await uploadToR2(optimizedBuffer, filename, fileEntry.type);
+        console.log('Image uploaded to R2:', imagePath);
+      } catch (r2Error) {
+        console.error('R2 upload error:', r2Error);
+        // Fallback to base64
+        const base64 = optimizedBuffer.toString('base64');
+        const mimeType = fileEntry.type || 'image/jpeg';
+        imagePath = `data:${mimeType};base64,${base64}`;
+        console.log('Using base64 fallback after R2 error');
+      }
+    } else if (useSupabase) {
       try {
         // Upload to Supabase Storage
         const { error: uploadError } = await supabase.storage
@@ -112,7 +128,7 @@ export async function POST(request: Request) {
         imagePath = `data:${mimeType};base64,${base64}`;
       }
     } else {
-      // Fall back to local filesystem
+      // Fall back to local filesystem (development only)
       await mkdir(UPLOAD_DIR, { recursive: true });
       const filePath = join(UPLOAD_DIR, filename);
       await writeFile(filePath, optimizedBuffer);
