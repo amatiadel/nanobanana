@@ -1,0 +1,7 @@
+<svg width="800" height="1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="1000" fill="#fef3c7"/>
+  <circle cx="300" cy="350" r="120" fill="#ef4444"/>
+  <rect x="450" y="250" width="200" height="200" fill="#3b82f6"/>
+  <polygon points="400,600 500,800 300,800" fill="#10b981"/>
+  <text x="50%" y="95%" font-family="Arial, sans-serif" font-size="20" fill="#78350f" text-anchor="middle">Vector Illustration</text>
+</svg>

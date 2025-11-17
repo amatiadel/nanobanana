@@ -1,0 +1,13 @@
+<svg width="800" height="1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e3a8a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#grad4)"/>
+  <circle cx="400" cy="350" r="120" fill="#3b82f6" opacity="0.5"/>
+  <rect x="280" y="500" width="240" height="300" rx="120" fill="#3b82f6" opacity="0.5"/>
+  <rect x="250" y="700" width="300" height="200" rx="20" fill="#60a5fa" opacity="0.3"/>
+  <text x="50%" y="90%" font-family="Arial, sans-serif" font-size="20" fill="#bfdbfe" text-anchor="middle">Corporate Portrait</text>
+</svg>

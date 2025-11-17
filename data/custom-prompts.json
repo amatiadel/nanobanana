@@ -1,0 +1,40 @@
+[
+  {
+    "id": "prompt-2025-11-15T13:01:02.877Z-g6yrg",
+    "slug": "christina",
+    "title": "christina",
+    "creator": {
+      "id": "creator-christina",
+      "handle": "christina"
+    },
+    "coverUrl": "/uploads/1763211662875-1759853380526-0199bf6f-4e20-79e5-b23b-ca1d6967bef6.png",
+    "fullImageUrl": "/uploads/1763211662875-1759853380526-0199bf6f-4e20-79e5-b23b-ca1d6967bef6.png",
+    "description": "christina",
+    "prompt": "good image",
+    "tags": [
+      "good"
+    ],
+    "likes": 0,
+    "premium": false,
+    "createdAt": "2025-11-15T13:01:02.877Z"
+  },
+  {
+    "id": "prompt-2025-11-15T12:31:08.215Z-unzxp",
+    "slug": "amati",
+    "title": "amati",
+    "creator": {
+      "id": "creator-amati",
+      "handle": "amati"
+    },
+    "coverUrl": "/uploads/1763209868213-still-life-stacks-papers-documents.jpg",
+    "fullImageUrl": "/uploads/1763209868213-still-life-stacks-papers-documents.jpg",
+    "description": "amati",
+    "prompt": "fedfeefeeeeeeeee fef",
+    "tags": [
+      "neon"
+    ],
+    "likes": 0,
+    "premium": false,
+    "createdAt": "2025-11-15T12:31:08.215Z"
+  }
+]

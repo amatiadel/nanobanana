@@ -1,0 +1,8 @@
+<svg width="800" height="1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="1000" fill="#fef3c7"/>
+  <circle cx="400" cy="300" r="140" fill="#fbbf24" opacity="0.6"/>
+  <circle cx="350" cy="280" r="30" fill="#1e293b"/>
+  <circle cx="450" cy="280" r="30" fill="#1e293b"/>
+  <path d="M 350 400 Q 400 450 450 400" stroke="#f472b6" stroke-width="8" fill="none"/>
+  <text x="50%" y="90%" font-family="Arial, sans-serif" font-size="20" fill="#92400e" text-anchor="middle">Anime Character</text>
+</svg>

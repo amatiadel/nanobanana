@@ -1,0 +1,666 @@
+[
+  {
+    "id": "prompt-test-urban-reflection-dramatic",
+    "slug": "urban-reflection-in-dramatic-light",
+    "title": "Urban Reflection in Dramatic Light",
+    "creator": {
+      "id": "test-1",
+      "handle": "@test_creator"
+    },
+    "coverUrl": "/images/Urban Reflection in Dramatic Light.png",
+    "fullImageUrl": "/images/Urban Reflection in Dramatic Light.png",
+    "description": "High contrast city portrait captured at dusk with reflective highlights across the subject's silhouette.",
+    "prompt": "cinematic city portrait in dramatic light, reflective surfaces, dusk hues, professional photography, moody atmosphere, editorial styling",
+    "tags": [
+      "photography",
+      "cinematic",
+      "test"
+    ],
+    "likes": 999,
+    "premium": false,
+    "createdAt": "2025-11-10T12:00:00.000Z"
+  },
+  {
+    "id": "prompt-test-retrato-editorial",
+    "slug": "retrato-editorial-masculino-premium",
+    "title": "Retrato Editorial Masculino Premium",
+    "creator": {
+      "id": "test-2",
+      "handle": "@test_creator"
+    },
+    "coverUrl": "/images/Retrato editorial masculino premium.jpeg",
+    "fullImageUrl": "/images/Retrato editorial masculino premium.jpeg",
+    "description": "Editorial portrait of a confident male model with premium studio lighting and warm color grading.",
+    "prompt": "editorial male portrait, premium studio lighting, confident pose, warm color grading, magazine cover aesthetic",
+    "tags": [
+      "photography",
+      "editorial",
+      "test"
+    ],
+    "likes": 995,
+    "premium": true,
+    "createdAt": "2025-11-09T12:00:00.000Z"
+  },
+  {
+    "id": "prompt-test-submerged",
+    "slug": "submerged",
+    "title": "Submerged",
+    "creator": {
+      "id": "test-3",
+      "handle": "@test_creator"
+    },
+    "coverUrl": "/images/Submerged.png",
+    "fullImageUrl": "/images/Submerged.png",
+    "description": "Moody underwater portrait with deep blues and abstract reflections surrounding the subject.",
+    "prompt": "moody underwater portrait, deep blue palette, reflective ripples, cinematic diffusion, surreal styling, high detail",
+    "tags": [
+      "photography",
+      "surreal",
+      "test"
+    ],
+    "likes": 990,
+    "premium": false,
+    "createdAt": "2025-11-08T12:00:00.000Z"
+  },
+  {
+    "id": "prompt-1",
+    "slug": "urban-reflection",
+    "title": "Urban Reflection",
+    "creator": {
+      "id": "1",
+      "handle": "@artisan_ai"
+    },
+    "coverUrl": "/images/portrait-1.svg",
+    "fullImageUrl": "/images/portrait-1.svg",
+    "description": "Dramatic, ultra-realistic close-up in black and white with high-contrast cinematic lighting from the side",
+    "prompt": "dramatic, ultra-realistic close-up in black and white with high-contrast cinematic lighting from the side, highlighting the contours of his face and sunglasses, professional photography, 85mm lens, shallow depth of field",
+    "tags": [
+      "realistic",
+      "cinematic",
+      "dark-moody"
+    ],
+    "likes": 218,
+    "premium": true,
+    "createdAt": "2025-10-22T07:57:20.339Z"
+  },
+  {
+    "id": "prompt-2",
+    "slug": "honey--fire",
+    "title": "Honey & Fire",
+    "creator": {
+      "id": "2",
+      "handle": "@pixel_wizard"
+    },
+    "coverUrl": "/images/portrait-2.svg",
+    "fullImageUrl": "/images/portrait-2.svg",
+    "description": "Portrait with warm golden tones and dramatic lighting, fashion photography style",
+    "prompt": "fashion portrait photography, warm golden honey tones, dramatic side lighting, professional model, high-end beauty shot, 85mm f/1.4, studio lighting, editorial style",
+    "tags": [
+      "realistic",
+      "elegant",
+      "vibrant-colorful"
+    ],
+    "likes": 518,
+    "premium": true,
+    "createdAt": "2025-10-29T19:13:34.912Z"
+  },
+  {
+    "id": "prompt-3",
+    "slug": "black--white",
+    "title": "Black & White",
+    "creator": {
+      "id": "3",
+      "handle": "@creative_mind"
+    },
+    "coverUrl": "/images/portrait-3.svg",
+    "fullImageUrl": "/images/portrait-3.svg",
+    "description": "Studio portrait of a confident man sitting on a modern beige armchair with wooden legs",
+    "prompt": "black and white studio portrait, confident businessman sitting on modern beige armchair, professional corporate photography, clean background, dramatic lighting, medium format camera",
+    "tags": [
+      "realistic",
+      "corporate",
+      "minimalist"
+    ],
+    "likes": 299,
+    "premium": true,
+    "createdAt": "2025-10-24T14:37:22.113Z"
+  },
+  {
+    "id": "prompt-4",
+    "slug": "retrato-editorial-masculino",
+    "title": "Retrato Editorial Masculino",
+    "creator": {
+      "id": "4",
+      "handle": "@digital_dreams"
+    },
+    "coverUrl": "/images/portrait-4.svg",
+    "fullImageUrl": "/images/portrait-4.svg",
+    "description": "Studio portrait of a confident man sitting on a modern beige armchair with wooden legs",
+    "prompt": "editorial portrait of confident man in navy blue suit, sitting on modern beige armchair, professional studio lighting, neutral background, corporate style, medium format photography",
+    "tags": [
+      "realistic",
+      "corporate",
+      "modern",
+      "elegant"
+    ],
+    "likes": 485,
+    "premium": false,
+    "createdAt": "2025-11-01T05:27:45.733Z"
+  },
+  {
+    "id": "prompt-5",
+    "slug": "monochrome-strength",
+    "title": "Monochrome Strength",
+    "creator": {
+      "id": "5",
+      "handle": "@prompt_master"
+    },
+    "coverUrl": "/images/portrait-5.svg",
+    "fullImageUrl": "/images/portrait-5.svg",
+    "description": "Powerful portrait in monochrome with dramatic green tones and studio lighting",
+    "prompt": "monochrome portrait with green color grading, man in dark green suit sitting in armchair, dramatic studio lighting, professional corporate photography, powerful composition",
+    "tags": [
+      "realistic",
+      "corporate",
+      "dark-moody",
+      "modern"
+    ],
+    "likes": 532,
+    "premium": true,
+    "createdAt": "2025-11-01T11:38:48.540Z"
+  },
+  {
+    "id": "prompt-6",
+    "slug": "blue-dreams-of-morocco",
+    "title": "Blue Dreams of Morocco",
+    "creator": {
+      "id": "6",
+      "handle": "@vision_lab"
+    },
+    "coverUrl": "/images/fantasy-1.svg",
+    "fullImageUrl": "/images/fantasy-1.svg",
+    "description": "Surreal portrait in vibrant blue Moroccan architecture with floating flowers",
+    "prompt": "surreal portrait in blue Moroccan courtyard, woman in traditional dress, floating colorful flowers, vibrant blue walls, magical realism, artistic photography, dreamlike atmosphere",
+    "tags": [
+      "realistic",
+      "vibrant-colorful",
+      "fantasy",
+      "elegant"
+    ],
+    "likes": 507,
+    "premium": true,
+    "createdAt": "2025-11-07T11:17:13.163Z"
+  },
+  {
+    "id": "prompt-7",
+    "slug": "submerged",
+    "title": "Submerged",
+    "creator": {
+      "id": "7",
+      "handle": "@style_forge"
+    },
+    "coverUrl": "/images/water-1.svg",
+    "fullImageUrl": "/images/water-1.svg",
+    "description": "Hyper-realistic, ultra-detailed close-up portrait showing only the left half of my face submerged in water",
+    "prompt": "hyper-realistic underwater portrait, half face submerged, water droplets, one eye in sharp focus, dramatic lighting, macro photography, ultra detailed, cinematic",
+    "tags": [
+      "realistic",
+      "cinematic",
+      "dark-moody"
+    ],
+    "likes": 272,
+    "premium": false,
+    "createdAt": "2025-10-31T17:01:03.002Z"
+  },
+  {
+    "id": "prompt-8",
+    "slug": "cinematic-portrait",
+    "title": "Cinematic Portrait",
+    "creator": {
+      "id": "8",
+      "handle": "@image_craft"
+    },
+    "coverUrl": "/images/cinematic-1.svg",
+    "fullImageUrl": "/images/cinematic-1.svg",
+    "description": "Dramatic portrait with cinematic lighting and intense gaze",
+    "prompt": "cinematic portrait, dramatic red lighting, intense gaze, professional photography, shallow depth of field, 85mm lens, moody atmosphere, high contrast",
+    "tags": [
+      "cinematic",
+      "realistic",
+      "dark-moody"
+    ],
+    "likes": 259,
+    "premium": true,
+    "createdAt": "2025-11-14T10:02:21.572Z"
+  },
+  {
+    "id": "prompt-9",
+    "slug": "vintage-watercolor-portrait",
+    "title": "Vintage Watercolor Portrait",
+    "creator": {
+      "id": "1",
+      "handle": "@artisan_ai"
+    },
+    "coverUrl": "/images/watercolor-1.svg",
+    "fullImageUrl": "/images/watercolor-1.svg",
+    "description": "Elegant vintage-style portrait with watercolor effects and warm tones",
+    "prompt": "vintage watercolor portrait, elegant woman in period dress, soft warm tones, artistic painting style, flowing brushstrokes, romantic atmosphere, detailed facial features",
+    "tags": [
+      "watercolor",
+      "elegant",
+      "retro-vintage"
+    ],
+    "likes": 148,
+    "premium": true,
+    "createdAt": "2025-11-01T14:00:07.457Z"
+  },
+  {
+    "id": "prompt-10",
+    "slug": "cyberpunk-city",
+    "title": "Cyberpunk City",
+    "creator": {
+      "id": "2",
+      "handle": "@pixel_wizard"
+    },
+    "coverUrl": "/images/cyberpunk-1.svg",
+    "fullImageUrl": "/images/cyberpunk-1.svg",
+    "description": "Neon-lit futuristic cityscape with flying vehicles and holographic advertisements",
+    "prompt": "cyberpunk city at night, neon lights, flying cars, holographic billboards, rain-soaked streets, futuristic architecture, purple and blue color palette, highly detailed",
+    "tags": [
+      "cyberpunk",
+      "sci-fi",
+      "neon",
+      "dark-moody"
+    ],
+    "likes": 541,
+    "premium": false,
+    "createdAt": "2025-10-25T12:27:41.684Z"
+  },
+  {
+    "id": "prompt-11",
+    "slug": "abstract-geometry",
+    "title": "Abstract Geometry",
+    "creator": {
+      "id": "3",
+      "handle": "@creative_mind"
+    },
+    "coverUrl": "/images/abstract-1.svg",
+    "fullImageUrl": "/images/abstract-1.svg",
+    "description": "Bold abstract composition with geometric shapes and vibrant colors",
+    "prompt": "abstract geometric art, bold shapes, vibrant color palette, modern design, clean lines, minimalist composition, digital art, high contrast",
+    "tags": [
+      "abstract",
+      "vibrant-colorful",
+      "modern",
+      "minimalist"
+    ],
+    "likes": 137,
+    "premium": false,
+    "createdAt": "2025-11-08T10:22:40.851Z"
+  },
+  {
+    "id": "prompt-12",
+    "slug": "anime-character-design",
+    "title": "Anime Character Design",
+    "creator": {
+      "id": "4",
+      "handle": "@digital_dreams"
+    },
+    "coverUrl": "/images/anime-1.svg",
+    "fullImageUrl": "/images/anime-1.svg",
+    "description": "Detailed anime character illustration with dynamic pose and vibrant colors",
+    "prompt": "anime character design, dynamic pose, vibrant colors, detailed clothing, expressive eyes, professional illustration, cel shading, high quality",
+    "tags": [
+      "anime",
+      "vibrant-colorful",
+      "concept-art"
+    ],
+    "likes": 100,
+    "premium": false,
+    "createdAt": "2025-10-19T09:54:32.911Z"
+  },
+  {
+    "id": "prompt-13",
+    "slug": "modern-architecture",
+    "title": "Modern Architecture",
+    "creator": {
+      "id": "5",
+      "handle": "@prompt_master"
+    },
+    "coverUrl": "/images/architecture-1.svg",
+    "fullImageUrl": "/images/architecture-1.svg",
+    "description": "Minimalist modern building with clean lines and glass facades",
+    "prompt": "modern architecture photography, minimalist building design, clean lines, glass facade, blue sky, professional architectural photography, wide angle lens",
+    "tags": [
+      "architecture",
+      "modern",
+      "minimalist"
+    ],
+    "likes": 251,
+    "premium": false,
+    "createdAt": "2025-11-08T15:08:36.314Z"
+  },
+  {
+    "id": "prompt-14",
+    "slug": "fantasy-landscape",
+    "title": "Fantasy Landscape",
+    "creator": {
+      "id": "6",
+      "handle": "@vision_lab"
+    },
+    "coverUrl": "/images/landscape-1.svg",
+    "fullImageUrl": "/images/landscape-1.svg",
+    "description": "Epic fantasy landscape with magical elements and dramatic lighting",
+    "prompt": "epic fantasy landscape, magical floating islands, dramatic sunset, mystical atmosphere, detailed environment, concept art style, vibrant colors",
+    "tags": [
+      "fantasy",
+      "vibrant-colorful",
+      "concept-art",
+      "cinematic"
+    ],
+    "likes": 132,
+    "premium": true,
+    "createdAt": "2025-10-25T10:40:07.940Z"
+  },
+  {
+    "id": "prompt-15",
+    "slug": "corporate-headshot",
+    "title": "Corporate Headshot",
+    "creator": {
+      "id": "7",
+      "handle": "@style_forge"
+    },
+    "coverUrl": "/images/business-1.svg",
+    "fullImageUrl": "/images/business-1.svg",
+    "description": "Professional business headshot with clean background",
+    "prompt": "professional corporate headshot, business attire, clean white background, confident expression, studio lighting, sharp focus, professional photography",
+    "tags": [
+      "corporate",
+      "business",
+      "realistic",
+      "minimalist"
+    ],
+    "likes": 378,
+    "premium": false,
+    "createdAt": "2025-10-19T06:45:36.323Z"
+  },
+  {
+    "id": "prompt-16",
+    "slug": "retro-poster-design",
+    "title": "Retro Poster Design",
+    "creator": {
+      "id": "8",
+      "handle": "@image_craft"
+    },
+    "coverUrl": "/images/poster-1.svg",
+    "fullImageUrl": "/images/poster-1.svg",
+    "description": "Vintage-inspired poster with retro typography and color palette",
+    "prompt": "retro poster design, vintage typography, warm color palette, 1970s aesthetic, textured paper effect, bold graphics, nostalgic feel",
+    "tags": [
+      "retro-vintage",
+      "poster",
+      "vibrant-colorful"
+    ],
+    "likes": 339,
+    "premium": false,
+    "createdAt": "2025-11-13T15:40:33.254Z"
+  },
+  {
+    "id": "prompt-17",
+    "slug": "product-photography",
+    "title": "Product Photography",
+    "creator": {
+      "id": "1",
+      "handle": "@artisan_ai"
+    },
+    "coverUrl": "/images/product-1.svg",
+    "fullImageUrl": "/images/product-1.svg",
+    "description": "Clean product shot with professional lighting and minimal background",
+    "prompt": "product photography, clean white background, professional studio lighting, sharp details, commercial photography, high-end product shot",
+    "tags": [
+      "product",
+      "minimalist",
+      "modern",
+      "corporate"
+    ],
+    "likes": 275,
+    "premium": false,
+    "createdAt": "2025-10-15T20:30:16.347Z"
+  },
+  {
+    "id": "prompt-18",
+    "slug": "sci-fi-character",
+    "title": "Sci-Fi Character",
+    "creator": {
+      "id": "2",
+      "handle": "@pixel_wizard"
+    },
+    "coverUrl": "/images/scifi-1.svg",
+    "fullImageUrl": "/images/scifi-1.svg",
+    "description": "Futuristic character design with advanced technology and armor",
+    "prompt": "sci-fi character design, futuristic armor, advanced technology, detailed mechanical parts, concept art, dramatic lighting, cybernetic enhancements",
+    "tags": [
+      "sci-fi",
+      "concept-art",
+      "cinematic"
+    ],
+    "likes": 190,
+    "premium": true,
+    "createdAt": "2025-11-05T06:01:54.069Z"
+  },
+  {
+    "id": "prompt-19",
+    "slug": "oil-painting-landscape",
+    "title": "Oil Painting Landscape",
+    "creator": {
+      "id": "3",
+      "handle": "@creative_mind"
+    },
+    "coverUrl": "/images/oil-painting-1.svg",
+    "fullImageUrl": "/images/oil-painting-1.svg",
+    "description": "Classical oil painting style landscape with rich textures",
+    "prompt": "oil painting landscape, classical style, rich textures, visible brushstrokes, warm color palette, traditional art technique, detailed scenery",
+    "tags": [
+      "oil-painting",
+      "elegant",
+      "retro-vintage"
+    ],
+    "likes": 537,
+    "premium": false,
+    "createdAt": "2025-11-10T19:42:42.529Z"
+  },
+  {
+    "id": "prompt-20",
+    "slug": "neon-portrait",
+    "title": "Neon Portrait",
+    "creator": {
+      "id": "4",
+      "handle": "@digital_dreams"
+    },
+    "coverUrl": "/images/neon-1.svg",
+    "fullImageUrl": "/images/neon-1.svg",
+    "description": "Portrait with vibrant neon lighting and cyberpunk aesthetic",
+    "prompt": "portrait with neon lighting, cyberpunk aesthetic, vibrant pink and blue lights, urban night setting, cinematic photography, moody atmosphere",
+    "tags": [
+      "neon",
+      "cyberpunk",
+      "vibrant-colorful",
+      "dark-moody"
+    ],
+    "likes": 108,
+    "premium": true,
+    "createdAt": "2025-10-25T16:37:13.687Z"
+  },
+  {
+    "id": "prompt-21",
+    "slug": "minimalist-logo",
+    "title": "Minimalist Logo",
+    "creator": {
+      "id": "5",
+      "handle": "@prompt_master"
+    },
+    "coverUrl": "/images/logo-1.svg",
+    "fullImageUrl": "/images/logo-1.svg",
+    "description": "Clean and simple logo design with modern typography",
+    "prompt": "minimalist logo design, clean lines, modern typography, simple geometric shapes, professional branding, vector art, monochromatic or limited color palette",
+    "tags": [
+      "logo",
+      "minimalist",
+      "modern",
+      "flat-design"
+    ],
+    "likes": 248,
+    "premium": false,
+    "createdAt": "2025-11-13T16:41:39.337Z"
+  },
+  {
+    "id": "prompt-22",
+    "slug": "cartoon-character",
+    "title": "Cartoon Character",
+    "creator": {
+      "id": "6",
+      "handle": "@vision_lab"
+    },
+    "coverUrl": "/images/cartoon-1.svg",
+    "fullImageUrl": "/images/cartoon-1.svg",
+    "description": "Cute cartoon character with expressive features and bright colors",
+    "prompt": "cute cartoon character design, expressive features, bright vibrant colors, simple shapes, friendly appearance, digital illustration, clean linework",
+    "tags": [
+      "cartoon",
+      "vibrant-colorful",
+      "flat-design"
+    ],
+    "likes": 208,
+    "premium": false,
+    "createdAt": "2025-10-23T07:37:52.561Z"
+  },
+  {
+    "id": "prompt-23",
+    "slug": "grunge-texture-art",
+    "title": "Grunge Texture Art",
+    "creator": {
+      "id": "7",
+      "handle": "@style_forge"
+    },
+    "coverUrl": "/images/grunge-1.svg",
+    "fullImageUrl": "/images/grunge-1.svg",
+    "description": "Dark grunge artwork with distressed textures and urban feel",
+    "prompt": "grunge art style, distressed textures, dark moody colors, urban aesthetic, rough edges, layered composition, alternative art",
+    "tags": [
+      "grunge",
+      "dark-moody",
+      "abstract"
+    ],
+    "likes": 492,
+    "premium": false,
+    "createdAt": "2025-10-30T19:45:59.458Z"
+  },
+  {
+    "id": "prompt-24",
+    "slug": "infographic-design",
+    "title": "Infographic Design",
+    "creator": {
+      "id": "8",
+      "handle": "@image_craft"
+    },
+    "coverUrl": "/images/infographic-1.svg",
+    "fullImageUrl": "/images/infographic-1.svg",
+    "description": "Clean and informative infographic with data visualization",
+    "prompt": "professional infographic design, clean layout, data visualization, modern icons, corporate color scheme, clear hierarchy, business presentation style",
+    "tags": [
+      "infographic",
+      "corporate",
+      "modern",
+      "flat-design"
+    ],
+    "likes": 510,
+    "premium": false,
+    "createdAt": "2025-10-21T08:24:21.562Z"
+  },
+  {
+    "id": "prompt-25",
+    "slug": "3d-render-product",
+    "title": "3D Render Product",
+    "creator": {
+      "id": "1",
+      "handle": "@artisan_ai"
+    },
+    "coverUrl": "/images/3d-render-1.svg",
+    "fullImageUrl": "/images/3d-render-1.svg",
+    "description": "Photorealistic 3D product render with studio lighting",
+    "prompt": "3D product render, photorealistic materials, studio lighting setup, clean background, high detail, professional visualization, ray tracing",
+    "tags": [
+      "3d-render",
+      "product",
+      "modern",
+      "realistic"
+    ],
+    "likes": 95,
+    "premium": true,
+    "createdAt": "2025-11-02T20:28:15.868Z"
+  },
+  {
+    "id": "prompt-26",
+    "slug": "sketch-line-art",
+    "title": "Sketch Line Art",
+    "creator": {
+      "id": "2",
+      "handle": "@pixel_wizard"
+    },
+    "coverUrl": "/images/sketch-1.svg",
+    "fullImageUrl": "/images/sketch-1.svg",
+    "description": "Detailed pencil sketch with clean line work",
+    "prompt": "pencil sketch, detailed line art, clean linework, traditional drawing style, shading with hatching, artistic illustration, black and white",
+    "tags": [
+      "sketch-line-art",
+      "minimalist"
+    ],
+    "likes": 58,
+    "premium": false,
+    "createdAt": "2025-11-06T11:59:46.277Z"
+  },
+  {
+    "id": "prompt-27",
+    "slug": "vector-illustration",
+    "title": "Vector Illustration",
+    "creator": {
+      "id": "3",
+      "handle": "@creative_mind"
+    },
+    "coverUrl": "/images/vector-1.svg",
+    "fullImageUrl": "/images/vector-1.svg",
+    "description": "Colorful vector illustration with flat design style",
+    "prompt": "vector illustration, flat design style, vibrant colors, clean shapes, modern aesthetic, scalable graphics, digital art",
+    "tags": [
+      "vector",
+      "flat-design",
+      "vibrant-colorful",
+      "modern"
+    ],
+    "likes": 486,
+    "premium": false,
+    "createdAt": "2025-10-29T15:18:54.080Z"
+  },
+  {
+    "id": "prompt-28",
+    "slug": "glitch-art-effect",
+    "title": "Glitch Art Effect",
+    "creator": {
+      "id": "4",
+      "handle": "@digital_dreams"
+    },
+    "coverUrl": "/images/glitch-1.svg",
+    "fullImageUrl": "/images/glitch-1.svg",
+    "description": "Digital glitch art with distorted colors and scan lines",
+    "prompt": "glitch art effect, digital distortion, RGB color shift, scan lines, corrupted data aesthetic, cyberpunk style, modern digital art",
+    "tags": [
+      "glitch",
+      "cyberpunk",
+      "abstract",
+      "neon"
+    ],
+    "likes": 125,
+    "premium": false,
+    "createdAt": "2025-11-08T02:31:51.124Z"
+  }
+]

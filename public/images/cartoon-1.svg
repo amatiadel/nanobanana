@@ -1,0 +1,10 @@
+<svg width="800" height="1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="1000" fill="#fef3c7"/>
+  <circle cx="400" cy="350" r="150" fill="#fbbf24"/>
+  <circle cx="350" cy="320" r="25" fill="#1e293b"/>
+  <circle cx="450" cy="320" r="25" fill="#1e293b"/>
+  <circle cx="355" cy="315" r="10" fill="#ffffff"/>
+  <circle cx="455" cy="315" r="10" fill="#ffffff"/>
+  <path d="M 340 400 Q 400 450 460 400" stroke="#1e293b" stroke-width="6" fill="none"/>
+  <text x="50%" y="90%" font-family="Arial, sans-serif" font-size="20" fill="#92400e" text-anchor="middle">Cartoon Character</text>
+</svg>
