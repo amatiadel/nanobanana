@@ -21,8 +21,8 @@ export function OrganizationSchema() {
     '@type': 'Organization',
     name: 'Banana Prompts',
     description: 'AI Image Prompt Gallery - Discover and share creative AI prompts',
-    url: process.env.NEXT_PUBLIC_APP_URL || 'https://nanobanana-beryl.vercel.app',
-    logo: `${process.env.NEXT_PUBLIC_APP_URL || 'https://nanobanana-beryl.vercel.app'}/logo.png`,
+    url: process.env.NEXT_PUBLIC_APP_URL || 'https://www.promptlibrary.space',
+    logo: `${process.env.NEXT_PUBLIC_APP_URL || 'https://www.promptlibrary.space'}/logo.png`,
     sameAs: [
       // Add your social media links here
       // 'https://twitter.com/bananaprompts',
@@ -40,12 +40,12 @@ export function WebsiteSchema() {
     '@type': 'WebSite',
     name: 'Banana Prompts',
     description: 'AI Image Prompt Gallery',
-    url: process.env.NEXT_PUBLIC_APP_URL || 'https://nanobanana-beryl.vercel.app',
+    url: process.env.NEXT_PUBLIC_APP_URL || 'https://www.promptlibrary.space',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${process.env.NEXT_PUBLIC_APP_URL || 'https://nanobanana-beryl.vercel.app'}/images?search={search_term_string}`,
+        urlTemplate: `${process.env.NEXT_PUBLIC_APP_URL || 'https://www.promptlibrary.space'}/images?search={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },
@@ -89,7 +89,7 @@ export function BlogPostingSchema({
       name: 'Banana Prompts',
       logo: {
         '@type': 'ImageObject',
-        url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://nanobanana-beryl.vercel.app'}/logo.png`,
+        url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://www.promptlibrary.space'}/logo.png`,
       },
     },
     mainEntityOfPage: {
