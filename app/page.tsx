@@ -3,6 +3,7 @@ import Hero from "@/components/home/Hero";
 import { PromptGrid } from "@/components/prompts/PromptGrid";
 import { getPrompts as getPromptsFromJson } from "@/lib/data";
 import { getPrompts as getPromptsFromSupabase } from "@/lib/db";
+import { OrganizationSchema, WebsiteSchema } from "@/components/seo/StructuredData";
 
 // Use Supabase if configured, otherwise fall back to JSON
 const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
@@ -28,10 +29,13 @@ export default async function Home() {
   const data = await getPrompts({ sort: 'likes', page: 1, pageSize: 24 });
 
   return (
-    <main className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero Section */}
-        <Hero />
+    <>
+      <OrganizationSchema />
+      <WebsiteSchema />
+      <main className="min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Hero Section */}
+          <Hero />
 
         {/* Prompts Grid Section */}
         <section className="mb-16" aria-labelledby="featured-heading">
@@ -47,5 +51,6 @@ export default async function Home() {
         </section>
       </div>
     </main>
+    </>
   );
 }
