@@ -1,48 +1,82 @@
-import { notFound } from 'next/navigation';
+'use client';
+
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { BlogPost } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Eye, User, ArrowLeft } from 'lucide-react';
 
-async function getBlogPost(slug: string): Promise<BlogPost | null> {
-  try {
-    // Use absolute URL for server-side fetch
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
-                    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
-                    'http://localhost:3000';
-    
-    const response = await fetch(
-      `${baseUrl}/api/blog/${slug}`,
-      { 
-        cache: 'no-store',
-        headers: {
-          'Content-Type': 'application/json',
-        }
+export default function BlogPostPage({ params }: { params: { slug: string } }) {
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    fetchPost();
+  }, [params.slug]);
+
+  const fetchPost = async () => {
+    try {
+      const response = await fetch(`/api/blog/${params.slug}`);
+      
+      if (!response.ok) {
+        setError(true);
+        setLoading(false);
+        return;
       }
-    );
-    
-    if (!response.ok) {
-      console.error('Failed to fetch blog post:', response.status, response.statusText);
-      return null;
+      
+      const data = await response.json();
+      setPost(data.post);
+    } catch (error) {
+      console.error('Failed to fetch blog post:', error);
+      setError(true);
+    } finally {
+      setLoading(false);
     }
-    
-    const data = await response.json();
-    return data.post;
-  } catch (error) {
-    console.error('Failed to fetch blog post:', error);
-    return null;
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50">
+        <div className="container mx-auto px-4 py-12">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="text-gray-600">Loading...</div>
+          </div>
+        </div>
+      </div>
+    );
   }
-}
 
-// Force dynamic rendering
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = await getBlogPost(params.slug);
-
-  if (!post) {
-    notFound();
+  if (error || !post) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50">
+        <div className="container mx-auto px-4 py-12">
+          <div className="max-w-4xl mx-auto">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 text-gray-600 hover:text-orange-600 mb-8 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Blog
+            </Link>
+            <div className="bg-white rounded-2xl p-12 text-center">
+              <h1 className="text-3xl font-bold text-gray-900 mb-4">Post Not Found</h1>
+              <p className="text-gray-600 mb-6">
+                The blog post you're looking for doesn't exist or has been removed.
+              </p>
+              <Link
+                href="/blog"
+                className="inline-block bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition-colors"
+              >
+                View All Posts
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const formatDate = (dateString: string) => {
