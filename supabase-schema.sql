@@ -34,21 +34,27 @@ CREATE POLICY "Allow anonymous read access"
   TO anon
   USING (true);
 
--- Optional: Create policy for authenticated users to insert prompts
--- Uncomment when you add authentication
--- CREATE POLICY "Allow authenticated users to insert"
---   ON prompts
---   FOR INSERT
---   TO authenticated
---   WITH CHECK (auth.uid()::text = creator_id);
+-- Allow anonymous users to insert prompts (for admin panel)
+CREATE POLICY "Allow anonymous insert"
+  ON prompts
+  FOR INSERT
+  TO anon
+  WITH CHECK (true);
 
--- Optional: Create policy for users to update their own prompts
--- CREATE POLICY "Allow users to update own prompts"
---   ON prompts
---   FOR UPDATE
---   TO authenticated
---   USING (auth.uid()::text = creator_id)
---   WITH CHECK (auth.uid()::text = creator_id);
+-- Allow anonymous users to update prompts (for likes and admin edits)
+CREATE POLICY "Allow anonymous update"
+  ON prompts
+  FOR UPDATE
+  TO anon
+  USING (true)
+  WITH CHECK (true);
+
+-- Allow anonymous users to delete prompts (for admin panel)
+CREATE POLICY "Allow anonymous delete"
+  ON prompts
+  FOR DELETE
+  TO anon
+  USING (true);
 
 -- Sample data insert (optional - for testing)
 -- You can also use the seed data from seed/prompts.json
