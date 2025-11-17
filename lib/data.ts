@@ -20,7 +20,11 @@ const basePrompts: PromptItem[] = [...(promptsJson as PromptItem[])];
 let promptsData: PromptItem[] = [];
 let promptsLastLoaded = 0;
 
+// Check if we're in a serverless environment (Vercel)
+const isServerless = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME;
+
 function ensureDataDirectories() {
+  if (isServerless) return; // Skip in serverless environments
   try {
     fs.mkdirSync(dataDir, { recursive: true });
     fs.mkdirSync(uploadsDir, { recursive: true });
@@ -30,13 +34,18 @@ function ensureDataDirectories() {
 }
 
 function writePromptStoreToDisk() {
+  if (isServerless) return; // Skip in serverless environments
   ensureDataDirectories();
-  fs.writeFileSync(
-    galleryPromptsPath,
-    JSON.stringify(promptsData, null, 2),
-    'utf8'
-  );
-  promptsLastLoaded = fs.statSync(galleryPromptsPath).mtimeMs;
+  try {
+    fs.writeFileSync(
+      galleryPromptsPath,
+      JSON.stringify(promptsData, null, 2),
+      'utf8'
+    );
+    promptsLastLoaded = fs.statSync(galleryPromptsPath).mtimeMs;
+  } catch (error) {
+    console.warn('Failed to write prompts to disk:', error);
+  }
 }
 
 function loadLegacyCustomPrompts(): PromptItem[] {
@@ -72,6 +81,14 @@ function initializePromptStore() {
 }
 
 function refreshPromptsFromDisk(force: boolean = false) {
+  if (isServerless) {
+    // In serverless, always use base prompts (read-only)
+    if (!promptsData.length) {
+      promptsData = [...basePrompts];
+    }
+    return;
+  }
+  
   ensureDataDirectories();
   const exists = fs.existsSync(galleryPromptsPath);
   const lastModified = exists ? fs.statSync(galleryPromptsPath).mtimeMs : 0;
@@ -256,6 +273,13 @@ export function incrementPromptLikesById(id: string): PromptItem | null {
 }
 
 export function incrementPromptLikesBySlug(slug: string): PromptItem | null {
+  if (isServerless) {
+    // In serverless/production, likes are read-only
+    // Return the prompt without incrementing
+    const prompt = promptsData.find((p) => p.slug === slug);
+    return prompt || null;
+  }
+  
   refreshPromptsFromDisk();
   const index = promptsData.findIndex((prompt) => prompt.slug === slug);
   if (index === -1) {
