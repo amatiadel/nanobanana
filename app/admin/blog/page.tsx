@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Trash2, Eye, Edit } from 'lucide-react';
 import Link from 'next/link';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 
 export default function AdminBlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -181,7 +182,9 @@ export default function AdminBlogPage() {
 
         {showForm && (
           <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 className="text-xl font-bold mb-4">Create New Blog Post</h2>
+            <h2 className="text-xl font-bold mb-4">
+              {editingId ? 'Edit Blog Post' : 'Create New Blog Post'}
+            </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium mb-1">Title *</label>
@@ -207,13 +210,13 @@ export default function AdminBlogPage() {
 
               <div>
                 <label className="block text-sm font-medium mb-1">Content *</label>
-                <textarea
+                <RichTextEditor
                   value={formData.content}
-                  onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                  className="w-full px-3 py-2 border rounded-lg"
-                  rows={10}
-                  required
+                  onChange={(content) => setFormData({ ...formData, content })}
                 />
+                <p className="text-xs text-gray-500 mt-1">
+                  Use the toolbar to format text and upload images directly into your content.
+                </p>
               </div>
 
               <div>
@@ -242,14 +245,21 @@ export default function AdminBlogPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Cover Image *</label>
+                <label className="block text-sm font-medium mb-1">
+                  Cover Image {!editingId && '*'}
+                </label>
                 <input
                   type="file"
                   accept="image/*"
                   onChange={(e) => setCoverImage(e.target.files?.[0] || null)}
                   className="w-full px-3 py-2 border rounded-lg"
-                  required
+                  required={!editingId}
                 />
+                {editingId && (
+                  <p className="text-xs text-gray-500 mt-1">
+                    Leave empty to keep the current cover image
+                  </p>
+                )}
               </div>
 
               <div className="flex items-center gap-2">
@@ -265,9 +275,27 @@ export default function AdminBlogPage() {
                 </label>
               </div>
 
-              <Button type="submit" disabled={submitting} className="w-full">
-                {submitting ? 'Creating...' : 'Create Blog Post'}
-              </Button>
+              <div className="flex gap-2">
+                {editingId && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleCancelEdit}
+                    className="flex-1"
+                  >
+                    Cancel
+                  </Button>
+                )}
+                <Button type="submit" disabled={submitting} className="flex-1">
+                  {submitting
+                    ? editingId
+                      ? 'Updating...'
+                      : 'Creating...'
+                    : editingId
+                    ? 'Update Blog Post'
+                    : 'Create Blog Post'}
+                </Button>
+              </div>
             </form>
           </div>
         )}
