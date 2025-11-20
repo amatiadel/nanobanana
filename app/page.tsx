@@ -54,7 +54,7 @@ export default async function Home() {
           <div className="flex justify-center mt-12">
             <a
               href="/images"
-              className="inline-flex items-center gap-2 bg-orange-600 text-white px-8 py-4 rounded-xl hover:bg-orange-700 transition-colors font-semibold text-lg shadow-lg hover:shadow-xl"
+              className="inline-flex items-center gap-2 bg-white text-slate-900 px-8 py-3 rounded-lg hover:bg-slate-50 transition-colors font-medium shadow-sm border border-slate-200"
             >
               Explore trending prompts
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
