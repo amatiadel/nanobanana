@@ -11,8 +11,21 @@ function validateApiKey(request: Request): boolean {
   const apiKey = request.headers.get('x-api-key');
   const validApiKey = process.env.ADMIN_API_KEY;
   
+  // Debug logging
+  console.log('=== API Key Validation Debug ===');
+  console.log('Received API key:', apiKey ? `${apiKey.substring(0, 10)}...` : 'NONE');
+  console.log('Valid API key exists:', !!validApiKey);
+  console.log('Valid API key value:', validApiKey ? `${validApiKey.substring(0, 10)}...` : 'NONE');
+  console.log('Keys match:', apiKey === validApiKey);
+  console.log('================================');
+  
   if (!validApiKey) {
-    console.error('ADMIN_API_KEY not configured');
+    console.error('ADMIN_API_KEY not configured in environment');
+    return false;
+  }
+  
+  if (!apiKey) {
+    console.error('No x-api-key header provided in request');
     return false;
   }
   
