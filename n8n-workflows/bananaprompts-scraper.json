@@ -1,0 +1,127 @@
+{
+  "name": "BananaPrompts Scraper to PROMPT LIBRARY",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "={{ $json.promptUrl }}",
+        "options": {}
+      },
+      "id": "1",
+      "name": "Fetch Prompt Page",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [460, 240]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract data from HTML\nconst html = $input.first().json.data;\n\n// Extract title\nconst titleMatch = html.match(/<h1[^>]*class=\"[^\"]*text-3xl[^\"]*\"[^>]*>([^<]+)<\\/h1>/);\nconst title = titleMatch ? titleMatch[1].trim() : 'Untitled';\n\n// Extract prompt text\nconst promptMatch = html.match(/<p[^>]*class=\"whitespace-pre-wrap\"[^>]*>([^<]+)<\\/p>/);\nconst prompt = promptMatch ? promptMatch[1].trim() : '';\n\n// Extract image URL (get the highest quality)\nconst imageMatch = html.match(/src=\"(https:\\/\\/cdn\\.bananaprompts\\.xyz\\/[^\"]+\\?w=3840[^\"]+)\"/);\nlet imageUrl = imageMatch ? imageMatch[1] : '';\n\n// If no 3840w, try to find any image\nif (!imageUrl) {\n  const anyImageMatch = html.match(/src=\"(https:\\/\\/cdn\\.bananaprompts\\.xyz\\/[^\"]+)\"/);\n  imageUrl = anyImageMatch ? anyImageMatch[1] : '';\n}\n\n// Extract tags\nconst tagMatches = html.matchAll(/<span[^>]*class=\"[^\"]*rounded-full[^\"]*\"[^>]*>([^<]+)<\\/span>/g);\nconst tags = [];\nfor (const match of tagMatches) {\n  const tag = match[1].trim().toLowerCase();\n  if (tag && !tags.includes(tag)) {\n    tags.push(tag);\n  }\n}\n\n// Return structured data\nreturn {\n  title,\n  prompt,\n  imageUrl,\n  tags,\n  creatorHandle: 'AdX',\n  sourceUrl: $input.first().json.promptUrl\n};"
+      },
+      "id": "2",
+      "name": "Extract Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 240]
+    },
+    {
+      "parameters": {
+        "url": "https://www.promptlibrary.space/api/admin/prompts/import",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "={{ $credentials.apiKey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "title",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "prompt",
+              "value": "={{ $json.prompt }}"
+            },
+            {
+              "name": "imageUrl",
+              "value": "={{ $json.imageUrl }}"
+            },
+            {
+              "name": "tags",
+              "value": "={{ $json.tags }}"
+            },
+            {
+              "name": "creatorHandle",
+              "value": "={{ $json.creatorHandle }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3",
+      "name": "Import to PROMPT LIBRARY",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [900, 240]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "promptUrl",
+              "value": "https://www.bananaprompts.xyz/prompts/7cca7d18-0a73-4386-bf11-7cb14a9e3926"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [240, 240]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Fetch Prompt Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Prompt Page": {
+      "main": [
+        [
+          {
+            "node": "Extract Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Data": {
+      "main": [
+        [
+          {
+            "node": "Import to PROMPT LIBRARY",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {}
+}
