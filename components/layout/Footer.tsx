@@ -29,6 +29,30 @@ export function Footer() {
             >
               Images
             </Link>
+            <Link
+              href="/blog"
+              className="text-sm text-slate-600 transition-colors hover:text-slate-900"
+            >
+              Blog
+            </Link>
+            <Link
+              href="/faq"
+              className="text-sm text-slate-600 transition-colors hover:text-slate-900"
+            >
+              FAQ
+            </Link>
+            <Link
+              href="/terms"
+              className="text-sm text-slate-600 transition-colors hover:text-slate-900"
+            >
+              Terms
+            </Link>
+            <Link
+              href="/privacy"
+              className="text-sm text-slate-600 transition-colors hover:text-slate-900"
+            >
+              Privacy
+            </Link>
           </nav>
 
           <p className="text-sm text-slate-500">
