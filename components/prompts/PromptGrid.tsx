@@ -10,13 +10,15 @@ interface PromptGridProps {
   initialPage?: number;
   initialTotal?: number;
   filters?: PromptsQueryParams;
+  showLoadMore?: boolean;
 }
 
 export function PromptGrid({ 
   initialPrompts, 
   initialPage = 1,
   initialTotal = 0,
-  filters = {}
+  filters = {},
+  showLoadMore = true
 }: PromptGridProps) {
   const [prompts, setPrompts] = useState<PromptItem[]>(initialPrompts);
   const [page, setPage] = useState(initialPage);
@@ -107,15 +109,15 @@ export function PromptGrid({
       </div>
 
       {/* Loading Skeletons */}
-      {isLoading && (
+      {showLoadMore && isLoading && (
         <div role="status" aria-live="polite" aria-label="Loading more prompts">
           <GridSkeleton count={8} />
           <span className="sr-only">Loading more prompts...</span>
         </div>
       )}
 
-      {/* Intersection Observer Target */}
-      <div ref={observerTarget} className="h-4" aria-hidden="true" />
+      {/* Intersection Observer Target - Only show if showLoadMore is true */}
+      {showLoadMore && <div ref={observerTarget} className="h-4" aria-hidden="true" />}
     </div>
   );
 }

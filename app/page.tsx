@@ -25,8 +25,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  // Fetch initial prompts sorted by likes directly from data layer
-  const data = await getPrompts({ sort: 'likes', page: 1, pageSize: 24 });
+  // Fetch only 12 prompts (3 rows x 4 columns) for home page
+  const data = await getPrompts({ sort: 'likes', page: 1, pageSize: 12 });
 
   return (
     <>
@@ -47,7 +47,21 @@ export default async function Home() {
             initialPage={data.page}
             initialTotal={data.total}
             filters={{ sort: 'likes' }}
+            showLoadMore={false}
           />
+          
+          {/* Explore Button */}
+          <div className="flex justify-center mt-12">
+            <a
+              href="/images"
+              className="inline-flex items-center gap-2 bg-orange-600 text-white px-8 py-4 rounded-xl hover:bg-orange-700 transition-colors font-semibold text-lg shadow-lg hover:shadow-xl"
+            >
+              Explore trending prompts
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+          </div>
         </section>
       </div>
     </main>
