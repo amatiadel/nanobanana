@@ -75,6 +75,7 @@ export default function AdminBlogPage() {
 
       alert(`Blog post ${editingId ? 'updated' : 'created'} successfully!`);
       setShowForm(false);
+      setEditingId(null);
       setFormData({
         title: '',
         excerpt: '',
@@ -173,7 +174,27 @@ export default function AdminBlogPage() {
                 View Blog
               </Button>
             </Link>
-            <Button onClick={() => setShowForm(!showForm)}>
+            <Button
+              onClick={() => {
+                if (showForm) {
+                  // Cancel - close form and reset
+                  handleCancelEdit();
+                } else {
+                  // New Post - reset editing state and show form
+                  setEditingId(null);
+                  setFormData({
+                    title: '',
+                    excerpt: '',
+                    content: '',
+                    tags: '',
+                    authorName: '',
+                    published: true,
+                  });
+                  setCoverImage(null);
+                  setShowForm(true);
+                }
+              }}
+            >
               <Plus className="w-4 h-4 mr-2" />
               {showForm ? 'Cancel' : 'New Post'}
             </Button>
