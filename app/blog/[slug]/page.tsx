@@ -137,10 +137,10 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 </div>
               </div>
 
-              <div className="prose prose-lg max-w-none">
+              <div className="prose prose-lg max-w-none blog-content">
                 <p className="text-xl text-gray-700 mb-8 font-medium">{post.excerpt}</p>
                 <div
-                  className="text-gray-700 leading-relaxed whitespace-pre-wrap"
+                  className="text-gray-700 leading-relaxed"
                   dangerouslySetInnerHTML={{ __html: post.content }}
                 />
               </div>
