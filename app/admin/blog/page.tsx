@@ -4,13 +4,14 @@ import { useState, useEffect } from 'react';
 import { BlogPost } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Trash2, Eye } from 'lucide-react';
+import { Plus, Trash2, Eye, Edit } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AdminBlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     title: '',
     excerpt: '',
@@ -40,7 +41,7 @@ export default function AdminBlogPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!coverImage) {
+    if (!coverImage && !editingId) {
       alert('Please select a cover image');
       return;
     }
@@ -54,19 +55,24 @@ export default function AdminBlogPage() {
       formDataToSend.append('tags', formData.tags);
       formDataToSend.append('authorName', formData.authorName);
       formDataToSend.append('published', formData.published.toString());
-      formDataToSend.append('coverImage', coverImage);
+      if (coverImage) {
+        formDataToSend.append('coverImage', coverImage);
+      }
 
-      const response = await fetch('/api/admin/blog', {
-        method: 'POST',
+      const url = editingId ? `/api/admin/blog/${editingId}` : '/api/admin/blog';
+      const method = editingId ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
         body: formDataToSend,
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.message || 'Failed to create post');
+        throw new Error(error.message || `Failed to ${editingId ? 'update' : 'create'} post`);
       }
 
-      alert('Blog post created successfully!');
+      alert(`Blog post ${editingId ? 'updated' : 'created'} successfully!`);
       setShowForm(false);
       setFormData({
         title: '',
@@ -84,6 +90,35 @@ export default function AdminBlogPage() {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleEdit = (post: BlogPost) => {
+    setEditingId(post.id);
+    setFormData({
+      title: post.title,
+      excerpt: post.excerpt,
+      content: post.content,
+      tags: post.tags.join(', '),
+      authorName: post.authorName,
+      published: post.published,
+    });
+    setCoverImage(null);
+    setShowForm(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setFormData({
+      title: '',
+      excerpt: '',
+      content: '',
+      tags: '',
+      authorName: '',
+      published: true,
+    });
+    setCoverImage(null);
+    setShowForm(false);
   };
 
   const handleDelete = async (id: string) => {
@@ -302,14 +337,24 @@ export default function AdminBlogPage() {
                       {formatDate(post.createdAt)}
                     </td>
                     <td className="px-6 py-4">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleDelete(post.id)}
-                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleEdit(post)}
+                          className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                        >
+                          <Edit className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDelete(post.id)}
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
                     </td>
                   </tr>
                 ))

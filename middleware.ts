@@ -13,7 +13,7 @@ function unauthorizedResponse() {
 }
 
 const protectedPrefixes = ['/adminconstantine', '/api/admin'];
-const apiKeyRoutes = ['/api/admin/prompts/import', '/api/admin/blog'];
+const apiKeyRoutes = ['/api/admin/prompts/import', '/api/admin/blog/import'];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
