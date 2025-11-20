@@ -1,16 +1,21 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/db';
 import { BlogPost } from '@/lib/types';
 
-const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+const useSupabase = !!(
+  process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { slug: string } }
 ) {
   try {
     if (!useSupabase) {
-      return NextResponse.json({ message: 'Blog not configured' }, { status: 404 });
+      return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
     }
 
     const { data, error } = await supabase
@@ -21,7 +26,7 @@ export async function GET(
       .single();
 
     if (error || !data) {
-      return NextResponse.json({ message: 'Blog post not found' }, { status: 404 });
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
 
     // Increment view count
@@ -41,14 +46,26 @@ export async function GET(
       authorAvatarUrl: data.author_avatar_url,
       tags: Array.isArray(data.tags) ? data.tags : [],
       published: data.published,
-      views: (data.views || 0) + 1,
+      views: data.views || 0,
       createdAt: data.created_at,
       updatedAt: data.updated_at,
     };
 
-    return NextResponse.json({ post });
+    return NextResponse.json(
+      { post },
+      {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+        },
+      }
+    );
   } catch (error) {
     console.error('Failed to fetch blog post:', error);
-    return NextResponse.json({ message: 'Failed to fetch blog post' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to fetch blog post' },
+      { status: 500 }
+    );
   }
 }

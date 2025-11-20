@@ -6,6 +6,9 @@ import { optimizeImageBuffer } from '@/lib/image';
 const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 const useR2 = isR2Configured();
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET() {
   try {
     if (!useSupabase) {
