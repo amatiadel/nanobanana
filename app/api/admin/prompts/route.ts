@@ -6,6 +6,10 @@ import { optimizeImageBuffer } from '@/lib/image';
 import { supabase } from '@/lib/db';
 import { uploadToR2, isR2Configured } from '@/lib/r2';
 
+// Increase body size limit for image uploads
+export const runtime = 'nodejs';
+export const maxDuration = 60; // 60 seconds timeout
+
 const UPLOAD_DIR = join(process.cwd(), 'public', 'uploads');
 const useSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 const useR2 = isR2Configured();

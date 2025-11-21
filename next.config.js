@@ -26,6 +26,10 @@ const nextConfig = {
       static: 0,
     },
   },
+  // Increase body size limit for image uploads (10MB)
+  serverRuntimeConfig: {
+    maxBodySize: '10mb',
+  },
 }
 
 module.exports = nextConfig
